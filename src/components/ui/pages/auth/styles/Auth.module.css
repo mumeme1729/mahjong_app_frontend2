@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+/* .auth_body_header_img{
+    background-image: url('../../../../img/title_logo.jpg');
+    background-repeat:no-repeat;
+    background-size:  cover; 
+    background-position: right center;
+    text-align: center;
+    height: 500px;
+} */
+
+.auth_title_h1{   
+    margin-top: -10px;
+    color: snow;
+    font-size: 40px;
+    text-shadow: 1px 1px 2px silver;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.auth_title_p{
+    margin-top: -20px;
+    font-size: 20px;
+    color: black;
+    text-shadow: 2px 2px 2px white;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.auth_login_signup_container{
+    display: flex;
+    justify-content: center;
+}
+.textfield{
+    background-color: snow;
+    border-radius: 10px;
+}
+.auth_login_signup{
+    margin-top: 50px;
+    background-color:rgb(255, 250, 250,0.4);
+    width: 300px;
+}
+.auth_description_container{
+    text-align: center;
+    margin-top: 40px;
+}
+.auth_description_body{
+    display: flex;
+    justify-content: center;  
+}
+.auth_description_btn_div{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 150px;
+}
+.auth_description_btn{
+    /* border-radius: 30px; */
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 0px;
+    height:30px;
+
+}
+.auth_description_btn_h2{
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-top: -2px;
+}
+.auth_description_btn_h2_underline{
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-top: -2px;
+    border-bottom:solid 6px rgb(0, 153, 255);
+}
+/* what */
+.auth_what_container{
+    text-align: center;
+    background-color: rgb(155, 212, 235);
+    padding-bottom: 30px;
+    
+}
+.auth_what{
+    display: flex;
+    justify-content: center;
+}
+.auth_what_h2{
+    border-bottom:solid 6px rgb(0, 153, 255);
+    width: 240px;
+    font-size: 20px;
+    color:black;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.auth_what_p{
+    margin-top: -3px;
+    font-weight: 400;
+    font-size: 18px;
+    color: rgb(94, 94, 94);
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.auth_how_to_container{
+    display: flex;
+    justify-content: center;
+}
+.auth_how_to_body{
+    width: 350px;
+}
+.auth_how_to{
+    display: flex;
+    justify-content: center;
+}
+.auth_how_to_h2{
+    border-bottom:solid 6px rgb(0, 153, 255);
+    width: 80px;
+    font-size: 20px;
+    color:black;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.how_to_p{
+    font-size: 18px;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: left;
+}
+.how_to_p_title{
+    text-align: left;
+    font-size: 15px;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.how_to_p_2{
+    color: rgb(94, 94, 94);
+    font-size: 15px;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: left;
+    margin-left: 15px;
+    margin-top: -5px;
+}
+.how_to_p_3{
+    color: rgb(94, 94, 94);
+    font-size: 12px;
+    margin-left: -20px;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: left;
+    margin-top: -10px;
+}
+.how_to_image_login{
+    margin-top: -3px;
+    width: 300px;
+    height:300px;
+    margin-bottom: 3px;
+}
+.send_mail_container{
+    text-align: center;
+}
+.send_mail_p{
+    font-family: 'Noto Sans JP', sans-serif;
+}
+/* ログイン・サインアップ */
+.login_failure_p{
+    font-family: 'Noto Sans JP', sans-serif;
+    color: red;
+}
+.login_signup_h2{
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.switch_login_signup_btn{
+    font-family: 'Noto Sans JP', sans-serif;
+    color:rgb(1, 125, 207);
+    text-shadow: 1px 1px 2px white;
+}
+.switch_login_signup_btn:hover{
+    opacity: 0.7;
+}
+.switch_login_signup_btn_container{
+    margin-top: 17px;
+}
+.link_border{
+    text-decoration: none;
+}
+/* アクティベート */
+.auth_login_main_container{
+    display: flex;
+    justify-content: center;
+}
+.auth_login_title_container{
+    text-align: center;
+}
+.auth_login_h2{
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.auth_activate_p{
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: center;
+}
+.activate_login_btn{
+    text-align: center;
+}
+/* パスワードリセット */
+.password_reset_container{
+    display: flex;
+    justify-content: center;
+}
+.password_reset_body{
+    margin-top: 100px;
+    width: 300px;
+    text-align: center;
+}
+.password_reset_h3{
+    margin-bottom: 50px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 25px;
+}
+.password_reset_p{
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    margin-top: -10px;
+}
+.password_reset_btn{
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.password_reset_btn:hover{
+    opacity: 0.7;
+}
+@media screen and (max-width:800px){
+    .auth_body_header_img{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .auth_body_header_img{
+        width: 100%;
+    }
+    .auth_title_h1{
+        font-size: 30px;
+    }
+}
