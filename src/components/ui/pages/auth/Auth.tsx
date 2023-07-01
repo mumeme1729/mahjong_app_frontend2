@@ -20,6 +20,15 @@ const Auth:React.FC = () => {
     const auth = useRecoilValue(authState);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        onAuthStateChanged(firebaseAuth, (currentUser) => {
+          // if(currentUser && currentUser.emailVerified){
+          if(currentUser){
+            navigate("/")
+          }
+        });
+      }, []);
+
     return (
         <>
             <div className={styles.auth_container}>

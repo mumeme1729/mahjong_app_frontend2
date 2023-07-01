@@ -31,7 +31,7 @@ function App() {
       // if(currentUser && currentUser.emailVerified){
       if(currentUser){
         setAuth(currentUser);
-        console.log(currentUser)
+        console.log(`usrset=${currentUser}`)
       }
       setIsLoading(false);
     });

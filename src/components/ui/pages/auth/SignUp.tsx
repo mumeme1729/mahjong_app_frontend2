@@ -6,8 +6,9 @@ import Modal from "react-modal";
 import styles from './styles/Auth.module.css';
 import { firebaseAuth } from '../../../../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { userRegister } from '../../../../lib/api/authApi';
-import { UserRegist } from '../../../types/auth/auth_types'
+import { postUserRegister} from '../../../../lib/api/authApi';
+import { RegistResponse, UserRegist } from '../../../types/auth/auth_types'
+import { useNavigate } from "react-router-dom";
 const modalStyle={
     overlay: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -25,7 +26,8 @@ const modalStyle={
 const SignUp = () => {
     const [sendEmail,setSendEmail]=useState(false);
     const [successCreateAccount,setSuccessCreateAccount]=useState(false);
-
+    const [signUpErrorMessage, setSignUpErrorMessage]=useState("このメールアドレスは既に登録されています")
+    const navigate = useNavigate();
     return (
       <>
       <div className="auth_container">
@@ -44,8 +46,12 @@ const SignUp = () => {
                         is_active:true
                     }
 
-                    const registerUser = await userRegister(register_data)
-                    console.log(registerUser)
+                    const registerUser:RegistResponse = await postUserRegister(register_data)
+                    if (registerUser.status=="ok"){
+                        navigate("/")
+                    }else{
+                        setSuccessCreateAccount(true)
+                    }
                   } catch(error) {
                     alert(error);
                   }

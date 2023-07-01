@@ -14,6 +14,7 @@ export function ApiClientProvider({children}: {children: React.ReactElement[]| R
             // --ヘッダにアクセストークンを埋める
           if (user) {
               const idToken = await user.getIdToken()
+              console.log(idToken)
               config.headers.Authorization = `Bearer ${idToken}`
           }
           return config
@@ -23,7 +24,7 @@ export function ApiClientProvider({children}: {children: React.ReactElement[]| R
         apiClient.interceptors.request.eject(requestInterceptors)
         // axiosClient.interceptors.response.eject(responseInterceptor)
     }
-    },[])
+    },[user])
     return (<>{children}</>)
 }
 
