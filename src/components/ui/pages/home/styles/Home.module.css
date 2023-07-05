@@ -31,8 +31,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 30px;
     width: 100%;
+    font-size: 30px;
     text-align: left;
 }
 .home_grouplist_container{

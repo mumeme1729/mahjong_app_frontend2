@@ -83,25 +83,7 @@
 .group_home_container_right{
     width: 70%;
 }
-.results_table_p{
-    display:inline;
-    font-family: 'Noto Sans JP', sans-serif;
-}
-.results_table_p_blue{
-    color: blue;
-    display:inline;
-    font-family: 'Noto Sans JP', sans-serif;
-}
-.results_table_p_red{
-    color: red;
-    display:inline;
-    font-family: 'Noto Sans JP', sans-serif;
-}
-.group_home_results{
-    margin-top: -15px;
-    height: 350px;
-    margin-left: 5px;
-}
+
 /* グループホーム　参加 */
 .participation_btn_container{
     width: 100%;
