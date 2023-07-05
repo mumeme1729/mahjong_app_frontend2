@@ -3,11 +3,16 @@ import firebase from 'firebase/auth';
 
 type AuthState = firebase.User| null;
 
-const authState = atom<AuthState>({
+export const authState = atom<AuthState>({
   key: 'authState',
   default: null,
   // TypeError: Cannot freezeを回避
   dangerouslyAllowMutability: true,
 });
 
-export default authState;
+export const isAuthLoadingState = atom<boolean>({
+  key: 'isAuthLoadingState',
+  default: true,
+  // TypeError: Cannot freezeを回避
+  dangerouslyAllowMutability: true,
+});

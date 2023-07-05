@@ -2,7 +2,6 @@ import React,{useEffect, useState} from 'react'
 import { Link, useLocation,useParams} from 'react-router-dom';
 import styles from "./styles/Header.module.css";
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import authState from '../../../../states/Auth';
 import { useNavigate } from "react-router-dom";
 import HeaderDrawer from './HeaderDrawer';
 

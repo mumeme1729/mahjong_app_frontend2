@@ -1,51 +1,64 @@
-import React,{ useEffect} from 'react'
-// import { useSelector, useDispatch } from "react-redux";
-// import { useHistory } from 'react-router-dom';
-// import { AppDispatch } from "../../../../app/store";
-// import { fetchAsyncGetMyProf,selectLoginUserProfile } from '../../../stores/auth/authSlice';
-// import { fetchAsyncGetBelongToGroup, selectBelongToGroup } from '../../../stores/home/homeSlice';
-// import BelongToGroupList from './BelongToGroupList';
-// import styles from "./Home.module.css";
-// import Search from './Search';
+import React,{ useEffect, useState} from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Avatar, Button,Drawer} from '@material-ui/core';
+import {loginUserState, loginUserTotalRecordState} from '../../../../states/UserState';
+import { getLoginUserTotalRecord, getLoginUserinfo } from '../../../../lib/api/UserApi';
+import BelongGroupContainer from './BelongingGroupsContainer';
+import styles from "./styles/Home.module.css";
+import PersonalRecord from './PersonalRecord';
+import { isProfileModalOpenState } from '../../../../states/HomeState';
+import Profile from './ProfileEdit';
+
 
 const Home:React.FC = () => {
-    // const dispatch: AppDispatch = useDispatch();
-    // const history = useHistory();
-    // const loginUserProfile=useSelector(selectLoginUserProfile);
-    // const belongtogroup=useSelector(selectBelongToGroup);
-    
-    // useEffect(()=>{
-    //     const fetchLoader = async ()=>{
-    //         //ログインしていたら
-    //         if (localStorage.localJWT) {
-    //             const result = await dispatch(fetchAsyncGetMyProf());//ログインしているユーザーのプロフィールを取得する
-    //             await dispatch(fetchAsyncGetBelongToGroup());
-    //             if (fetchAsyncGetMyProf.rejected.match(result)) {
-    //                 history.push('/')
-    //             }
-    //           }else{
-    //             history.push('/')
-    //           }
-    //         };
-    //     fetchLoader();
-    // },[dispatch,history]);
+    const setLoginUserInfo = useSetRecoilState(loginUserState);
+    const setLoginUserTotalRecord = useSetRecoilState(loginUserTotalRecordState);
+    const setIsProfileModalOpen = useSetRecoilState(isProfileModalOpenState)
+    const loginuser = useRecoilValue(loginUserState);
+
+    useEffect(()=>{
+        const fetchLoader = async ()=>{
+            try {
+                const loginUserInfo = await getLoginUserinfo()
+                const loginUserTotalRecord = await getLoginUserTotalRecord(false);
+                setLoginUserInfo(loginUserInfo)
+                setLoginUserTotalRecord(loginUserTotalRecord)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+       fetchLoader()
+    },[]);
 
     return (
-        <div>
-            {/* <Search/>
+        <>
             <div className={styles.home_container}>
-                {belongtogroup.length!==0 && belongtogroup[0].id!==0?
-                <div className={styles.home_grouplist_container}>
-                    {belongtogroup.map((group)=>( 
-                        group.profile.map((prof)=>(
-                            prof.is_active &&prof.userProfile===loginUserProfile.userProfile && <BelongToGroupList key={group.id} {...group}/>
-                        ))
-                    ))}
+                <div className={styles.home_body}>
+                    <div className={styles.home_profile_container}>
+                        <div className={styles.navmune_profile_avater}>
+                            <Button onClick={()=>{setIsProfileModalOpen(true)}}>
+                                {
+                                    loginuser?.image !== null?
+                                        <Avatar alt="who?" src={loginuser?.image} style={{height:'70px',width:'70px'}}/>
+                                    :
+                                        <Avatar alt="who?" src={""} style={{height:'70px',width:'70px'}}/>
+                                }
+                            </Button>
+                        </div>
+                        <div className={styles.home_profile_nickname_container}>
+                            <div className={styles.home_nick_name}>{loginuser?.nick_name}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <PersonalRecord />
+                    </div>
+                    <div>
+                        <BelongGroupContainer />
+                    </div>
                 </div>
-                :<>参加しているグループはありません</>}
-            </div> */}
-            ホーム
-        </div>
+            </div>
+            <Profile />
+        </>
     )
 }
 

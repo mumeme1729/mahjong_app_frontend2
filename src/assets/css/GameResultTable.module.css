@@ -1,0 +1,32 @@
+/* 対局結果テーブル */
+.gameresult_container{
+    display: flex;
+}
+.gameresult_body{
+    margin-left: 20px;
+}
+.gameresult_container:hover{
+    opacity: 0.7;
+ } 
+ .table_container{
+    overflow: auto;
+}
+.results_table_p{
+    display:inline;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.results_table_p_blue{
+    color: blue;
+    display:inline;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.results_table_p_red{
+    color: red;
+    display:inline;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.group_home_results{
+    margin-top: -15px;
+    height: 350px;
+    margin-left: 5px;
+}

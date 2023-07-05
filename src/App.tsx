@@ -4,7 +4,7 @@ import './App.css';
 import {RecoilRoot, useRecoilValue, useSetRecoilState} from "recoil"
 import SignUp from './components/ui/pages/auth/SignUp';
 import Login from './components/ui/pages/auth/Login';
-import authState from './states/Auth';
+import {authState,isAuthLoadingState} from './states/AuthState';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { firebaseAuth } from './firebase';
 import {
@@ -17,26 +17,16 @@ import Top from './components/ui/pages/auth/Auth';
 import Header from './components/ui/pages/header/Header';
 import { useNavigate,  Navigate } from "react-router-dom";
 import Auth from './components/ui/pages/auth/Auth';
-import Home from './components/ui/pages/home/home';
-import { ApiClientProvider } from './lib/apiClient';
+import Home from './components/ui/pages/home/Home';
+import { ApiClientProvider } from './lib/ApiClient';
+import { useAuth } from './FirebaseAuthCustomHook';
+import GroupHome from './components/ui/pages/group/GroupHome';
 
 
 function App() {
-  const [isLoading, setIsLoading] = useState<Boolean>(true);
-  const setAuth = useSetRecoilState(authState);
+  const isLoading = useRecoilValue(isAuthLoadingState);
   const user = useRecoilValue(authState);
-
-  useEffect(() => {
-    onAuthStateChanged(firebaseAuth, (currentUser) => {
-      // if(currentUser && currentUser.emailVerified){
-      if(currentUser){
-        setAuth(currentUser);
-        console.log(currentUser)
-      }
-      setIsLoading(false);
-    });
-  }, []);
-
+  useAuth()
   return (
     <div className="App">
         <ApiClientProvider>
@@ -50,13 +40,14 @@ function App() {
               <Routes>
                   <Route path="/login" element={<Auth />} />
                   <Route path="/" element={user? <Home/>:<Navigate replace to="/login" />}/>
+                  <Route path="/group/:id" element={user? <GroupHome/>:<Navigate replace to="/login" /> }/>
               </Routes>
             </>
           )
         }
         </BrowserRouter>
         </ApiClientProvider>
-    </div>
+      </div>
   );
 }
 

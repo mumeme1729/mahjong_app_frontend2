@@ -1,16 +1,13 @@
 
 
-import apiClient from '../apiClient'
-import { UserRegist } from '../../components/types/auth/auth_types'
+import apiClient from '../ApiClient'
+import { UserRegist } from '../../components/types/AuthTypes'
+import { CommonResponse } from '../../components/types/CommonTypes'
 
-export type RegistResponse = {
-  status: string
-  details: string | null
-}
 
-export async function userRegister(user_info:UserRegist) {
+export async function postUserRegister(user_info:UserRegist) {
     try {
-      const response = await apiClient.post<RegistResponse>(`/api/register`,user_info)
+      const response = await apiClient.post<CommonResponse>(`/api/register`,user_info)
       return response.data
     } catch (error: unknown) {
       throw error
