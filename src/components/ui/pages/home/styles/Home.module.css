@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+/* ホーム */
+.home_container{
+    /* background-color: blueviolet; */
+    justify-content: center;
+    display: flex;
+}
+.home_body{
+    justify-content: center;
+    width: 90%;
+    /* background-color: coral; */
+}
+.home_profile_container{
+    display: flex;
+    width: 100%;
+}
+
+.home_profile_nickname_container{
+    /* margin-left: 10px; */
+    margin-top: 15px;
+    width: 80%;
+}
+.navmune_profile_avater{
+    width: 30%;
+    margin-top: 10px;
+    /* margin-left: 3px; */
+}
+.home_nick_name{
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 30px;
+    width: 100%;
+    text-align: left;
+}
+.home_grouplist_container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+/* グループ作成 */
+.create_group_container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin-top:15px;
+    margin-bottom:10px;
+}
+
+/* グループ一覧 */
+.groups_container{
+    display: flex;
+    flex-direction: column;
+}
+.belonging_group_card_container{
+    width: 350px;
+    height: 100px;
+    border: solid skyblue;
+    display: flex;
+    flex-direction: row;
+}
+.belonging_group_body_left{
+    height: 100px;
+    width: 100px;
+    /* background-color: thistle; */
+}
+.belonging_group_img{
+    width: 100px;
+    height: 100px;
+}
+.belonging_group_body_right{
+    margin-left: 20px;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.belonging_group_title{
+    /* background-color: blue; */
+    text-align: left;
+}
+
+.belonging_group_text{
+    margin-top: 10px;
+    /* background-color: red; */
+    text-align: left;
+}
+
+.belonging_group_h3{
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 20px;
+}
+
+.belonging_group_p{
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+/* 戦績テーブル */
+.table {
+    min-width: 700px;
+    max-width: 1200px;
+}
+.table_container{
+    overflow: auto;
+}
+
+.match_record_table{
+    display: flex;
+    justify-content: center;
+}
+.results_table_p{
+    display: block;
+    white-space: nowrap;
+    text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+    .header_title_h3{
+        display: none;
+    }
+    .footer_container{
+        margin-top: 320px;
+        bottom: 0; /*下に固定*/
+        text-align: center;
+    }
+}

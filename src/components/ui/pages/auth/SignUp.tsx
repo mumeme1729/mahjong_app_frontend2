@@ -6,9 +6,10 @@ import Modal from "react-modal";
 import styles from './styles/Auth.module.css';
 import { firebaseAuth } from '../../../../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { postUserRegister} from '../../../../lib/api/authApi';
-import { RegistResponse, UserRegist } from '../../../types/auth/auth_types'
+import { postUserRegister} from '../../../../lib/api/AuthApi';
+import { UserRegist } from '../../../types/AuthTypes'
 import { useNavigate } from "react-router-dom";
+import { CommonResponse } from '../../../types/CommonTypes';
 const modalStyle={
     overlay: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -46,7 +47,7 @@ const SignUp = () => {
                         is_active:true
                     }
 
-                    const registerUser:RegistResponse = await postUserRegister(register_data)
+                    const registerUser:CommonResponse = await postUserRegister(register_data)
                     if (registerUser.status=="ok"){
                         navigate("/")
                     }else{

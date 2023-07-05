@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import styles from './styles/Auth.module.css';
 import { firebaseAuth } from '../../../../firebase';
 import { useSetRecoilState } from 'recoil';
-import authState from '../../../../states/Auth';
+import {authState} from '../../../../states/AuthState';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 

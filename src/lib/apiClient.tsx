@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import authState from '../states/Auth';
+import {authState} from '../states/AuthState';
 import {RecoilRoot, useRecoilValue, useSetRecoilState} from "recoil"
 import { useEffect } from "react";
 

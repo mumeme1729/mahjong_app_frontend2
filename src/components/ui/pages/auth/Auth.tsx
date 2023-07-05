@@ -7,11 +7,11 @@ import img from '../../../img/fish_shark.png';
 import titlelogo from '../../../img/title_logo.jpg'
 import { firebaseAuth } from '../../../../firebase';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import authState from '../../../../states/Auth';
+import {authState} from '../../../../states/AuthState';
 import firebase from 'firebase/auth';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import Home from '../home/home';
+import Home from '../home/Home';
 
 
 const Auth:React.FC = () => {
@@ -37,7 +37,7 @@ const Auth:React.FC = () => {
                         <div className={styles.auth_body_header}>
                             <br/>
                             <br/>
-                            <h1 className={styles.auth_title_h1}>グループ麻雀レコード</h1>
+                            <h1 className={styles.auth_title_h1}>闘牌記β版</h1>
                             <p className={styles.auth_title_p}>グループごとに麻雀の成績を管理</p>
                         </div>
                         <div className={styles.auth_login_signup_container}>
