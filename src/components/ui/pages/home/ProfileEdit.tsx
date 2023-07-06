@@ -8,6 +8,8 @@ import { loginUserState } from '../../../../states/UserState';
 import { isProfileModalOpenState } from '../../../../states/HomeState';
 import { LoginUserInfo } from '../../../types/UserTypes';
 import { putUpdateUserInfo } from '../../../../lib/api/UserApi';
+import { isImageTrimmingModalOpenState, trimedImageState } from '../../../../states/ImageTrimmingState';
+import ImageTrimming from '../../../features/ImageTrimming';
 
 const modalStyle={
     overlay: {
@@ -28,8 +30,11 @@ const Profile:React.FC = () => {
     const [name,setName]=useState("");
     const [text,setText]=useState("");
     const loginuser = useRecoilValue(loginUserState);
+    const trimedImage = useRecoilValue(trimedImageState)
     const setLoginUserInfo = useSetRecoilState(loginUserState);
-    const setIsProfileModalOpen = useSetRecoilState(isProfileModalOpenState)
+    const setIsProfileModalOpen = useSetRecoilState(isProfileModalOpenState);
+    const setIsImageTrimmingModalOpen = useSetRecoilState(isImageTrimmingModalOpenState);
+    const setTrimedImage = useSetRecoilState(trimedImageState)
     const isProfileModalOpen =  useRecoilValue(isProfileModalOpenState)
     
     const updateProfile = async () => {
@@ -40,16 +45,16 @@ const Profile:React.FC = () => {
             if(updateText==="" && loginuser?.introduction !== null && loginuser?.introduction !== undefined){updateText=loginuser?.introduction}
             if(updateText===null){updateText=""}
             // 更新データ送信
-            console.log(`UserInfoUpdate = ${updateName} ${updateText}`)
-            const res = await putUpdateUserInfo(updateName, updateText)
-
+            const res = await putUpdateUserInfo(updateName, updateText, trimedImage)
+            console.log(res);
             const updated_data:LoginUserInfo = {
-                image:loginuser?.image,
+                image: loginuser?.image,
                 nick_name:updateName,
                 introduction:updateText,
                 group:loginuser?.group
             }
             setLoginUserInfo(updated_data)
+            setTrimedImage(null)
             setIsProfileModalOpen(false)
         } catch (error) {
             console.log(error)
@@ -57,10 +62,16 @@ const Profile:React.FC = () => {
         
     };
 
+    const createImageURL = (data:File) =>{
+        const imageURL = window.URL.createObjectURL(data);
+        return imageURL
+    }
+
     return (
         <Modal
             isOpen={isProfileModalOpen}
             onRequestClose={async () => {
+                setTrimedImage(null)
                 setIsProfileModalOpen(false)
             }}
             style={modalStyle}
@@ -69,15 +80,18 @@ const Profile:React.FC = () => {
             <div>
                 <h2>プロフィールを編集</h2>
                 <div>
-                    <Button onClick={()=>{}}>
+                    <Button onClick={()=>{setIsImageTrimmingModalOpen(true)}}>
                     {
-                            loginuser?.image !== null?
+                            loginuser?.image !== null && trimedImage === null?
                                 <Avatar alt="who?" src={loginuser?.image} style={{height:'70px',width:'70px'}}/>
                             :
-                                <Avatar alt="who?" src={""} style={{height:'70px',width:'70px'}}/>
+                                trimedImage !== null?
+                                    <Avatar alt="who?" src={createImageURL(trimedImage)} style={{height:'70px',width:'70px'}}/>
+                                :
+                                    <Avatar alt="who?" src={""} style={{height:'70px',width:'70px'}}/>
                         }
                     </Button>
-                    {/* <ImageTrimming/> */}
+                    <ImageTrimming/>
                     <div>
                         <TextField placeholder="名前" type="text" defaultValue={loginuser?.nick_name} label="名前"
                             onChange={(e) => {

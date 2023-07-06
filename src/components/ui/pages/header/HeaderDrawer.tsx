@@ -41,7 +41,7 @@ const HeaderDrawer:React.FC = () => {
                     <div className={styles.header_navbar_menu} onClick={()=>{}}>
                         <PersonIcon/><h4 className={styles.header_navbar_menu_title}>プロフィール</h4>
                     </div>
-                    <div className={styles.header_navbar_menu} onClick={()=>{}}>
+                    <div className={styles.header_navbar_menu} onClick={()=>{setOpenMenu(false);navigate("/")}}>
                         <HomeIcon/><h4 className={styles.header_navbar_menu_title}>ホーム</h4>
                     </div>
                     <div className={styles.header_navbar_menu} onClick={logout}>

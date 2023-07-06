@@ -2,14 +2,6 @@ import React,{useEffect,useState }  from 'react'
 
 import styles from "./styles/Group.module.css";
 import { Button, CircularProgress, makeStyles, TextField,} from '@material-ui/core';
-// import Table from '@material-ui/core/Table';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
-
-// import Modal from "react-modal";
-// import groupImage from '../img/fish_shark.png';
 import { useSetRecoilState } from 'recoil';
 import { recentlyGamesState, selectedGroupState } from '../../../../states/GroupState';
 import { getRecentlyGames, getSelectedGroupInfo } from '../../../../lib/api/GroupApi';
@@ -17,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { GameResultSchema } from '../../../types/GameTypes';
 import GroupMenu from './GroupMenu';
 import GroupInfo from './GroupInfo';
-import RecentlyGamesTable from './RecentlyGamesTable';
+import RecentlyGameContainer from './RecentlyGames';
 const modalStyle={
     overlay: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -64,7 +56,7 @@ const GroupHome:React.FC = () => {
                 <div className={styles.group_home_container_right_bottom}>
                     <div className={styles.group_home_results}>
                         <h3 className={styles.hgrouphome_menu_btn_h3}>直近の対局記録</h3>
-                        <RecentlyGamesTable/>
+                        < RecentlyGameContainer/>
                     </div>
                 </div>
             </div>

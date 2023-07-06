@@ -1,7 +1,38 @@
 /* 対局結果テーブル */
+.gameresult_table{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
 .gameresult_container{
     display: flex;
+    /* background-color: aqua; */
+    flex-direction: column;
+    margin-top: 3px;
+    /* border: 1px solid #ccc; */
+    background-color: #f0f0f0;
+    padding: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0, 0.2);
 }
+.gameresult_created_date{
+    text-align: left;
+}
+
+.gameresult_date_string{
+    font-style: italic;
+    font-size: 12px;
+}
+.gameresult_info_container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.gameresult_info_body{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+}
+
 .gameresult_body{
     margin-left: 20px;
 }
@@ -11,9 +42,11 @@
  .table_container{
     overflow: auto;
 }
+
 .results_table_p{
     display:inline;
     font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
 }
 .results_table_p_blue{
     color: blue;

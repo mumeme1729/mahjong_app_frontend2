@@ -33,7 +33,7 @@ export async function getLoginUserTotalRecord(is_sanma:boolean) {
 }
 
 // ログインしているユーザー情報を更新する
-export async function putUpdateUserInfo(nickName:string, introduction:string) {
+export async function putUpdateUserInfo(nickName:string, introduction:string, upload_file:File|null) {
     try {
       
       const params ={
@@ -41,7 +41,12 @@ export async function putUpdateUserInfo(nickName:string, introduction:string) {
         introduction: introduction
       }
 
-      const response = await apiClient.put<CommonResponse>(`/api/users/update_user_info`,null, {params})
+      const formData = new FormData();
+      if(upload_file !== null){
+        formData.append('upload_file',upload_file)
+      }
+
+      const response = await apiClient.put<CommonResponse>(`/api/users/update_user_info`,upload_file?formData:null, {params})
       return response.data
     } catch (error: unknown) {
       throw error
