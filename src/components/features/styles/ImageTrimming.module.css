@@ -1,0 +1,42 @@
+/* イメージトリミング */
+.image_trimming_container{
+    position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 360px;
+  height: 450px;
+	margin: 'auto';
+}
+.image_tring_select{
+    background-color: white;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 260px;
+    transform: translateX(-50%);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    
+}
+.image_trimming_body{
+    top:50px;
+    left:0;
+    right:0;
+    bottom: 20px; 
+    
+    position: absolute;
+}
+.profile_image_icon_input{
+    display: none;
+}
+.image_slider{
+    position: absolute;
+    top: 95%;
+    left: 30%;
+    width: 220px;
+    transform: translate(-30%,80%);
+}

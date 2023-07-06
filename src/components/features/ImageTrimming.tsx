@@ -1,9 +1,11 @@
 import {Button, IconButton, Slider } from '@material-ui/core'
 import React, { useCallback, useState } from 'react'
 import Modal from "react-modal";
-import Cropper from 'react-easy-crop'
+import Cropper, {Area} from 'react-easy-crop'
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-import styles from "./Home.module.css";
+import styles from "./styles/ImageTrimming.module.css";
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { isImageTrimmingModalOpenState, trimedImageState } from '../../states/ImageTrimmingState';
 
 const modalStyle={
     overlay: {
@@ -15,25 +17,26 @@ const modalStyle={
       top: "50%",
       left: "50%",
       backgroundColor: 'white',
-      width: 260,
+      width: 360,
       height: 480,
       transform: "translate(-50%, -50%)",
       },
 };
 
 const ImageTrimming:React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const isopenimagetrimming=useSelector(selectIsOpenImageTrimming);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
-  const profile=useSelector(selectLoginUserProfile);
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+  const [src, setSrc] = useState<any>(null);  
+  const [filename, setFileName] = useState<string>("");
+//   const isopenimagetrimming=useSelector(selectIsOpenImageTrimming);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area|null>(null)
+  const setIsImageTrimmingModalOpen = useSetRecoilState(isImageTrimmingModalOpenState);
+  const isImageTrimmingModalOpen =  useRecoilValue(isImageTrimmingModalOpenState)
+  const setTrimedImage = useSetRecoilState(trimedImageState)
+  const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
-    
   }, []);
 
-  const [src, setSrc] = useState<any>(null);  
 
   const onSelectFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files !== null) {
@@ -43,6 +46,7 @@ const ImageTrimming:React.FC = () => {
                 setSrc(reader.result);
             });
             reader.readAsDataURL(event.target.files[0]);
+            setFileName(event.target.files[0].name)
         }
     }
   }; 
@@ -91,18 +95,6 @@ const getCroppedImg=async(imageSrc: any, pixelCrop: { width: number; height: num
     });
 }
 
-async function updateImage(croppedImage:any){
-    const name:string=String(profile.id)+String(Date.now())+".jpg";
-    if(createImage!==null){
-        const newImage=new File([croppedImage],name,{type:"image/jpg",lastModified:Date.now()});
-        const packet = { id: profile.id,nickName:profile.nickName,text:profile.text,img: newImage,name:name,};
-        const results=await dispatch(fetchAsyncUpdateProfImage(packet)); 
-        if(fetchAsyncUpdateProfImage.fulfilled.match(results)){
-            dispatch(resetImageTrimming());
-        }
-    }  
-};
-
 async function showCroppedImage(){
     const croppedImage =  await getCroppedImg(
         src,
@@ -111,6 +103,16 @@ async function showCroppedImage(){
     await updateImage(croppedImage);
 };
 
+async function updateImage(croppedImage:any){
+    if(createImage!==null){
+        const name = filename;
+        const newImage=new File([croppedImage],name,{type:"image/jpg",lastModified:Date.now()});
+        setTrimedImage(newImage);
+        setIsImageTrimmingModalOpen(false);
+    }  
+};
+
+
 const handlerEditPicture = () => {
     const fileInput = document.getElementById("editInputImage");
     fileInput?.click();
@@ -118,14 +120,32 @@ const handlerEditPicture = () => {
   
   return (
         <Modal
-            isOpen={isopenimagetrimming}
+            isOpen={isImageTrimmingModalOpen}
             onRequestClose={async () => {
-                dispatch(resetImageTrimming());
+                setIsImageTrimmingModalOpen(false);
             }}
             style={modalStyle}
             ariaHideApp={false}
         >
             <div className={styles.image_trimming_container}>
+                <div className={styles.image_tring_select}>
+                    <input type="file" id="editInputImage" className={styles.profile_image_icon_input}
+                        accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
+                        onChange={onSelectFile}
+                    />
+                    <IconButton onClick={handlerEditPicture}>
+                        <PhotoLibraryIcon /> 画像を選択
+                    </IconButton>    
+                    <Button
+                        // disabled={!profile?.nickName}
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        onClick={showCroppedImage}
+                    >
+                    適応
+                    </Button>
+                </div>
                 <div className={styles.image_trimming_body}>
                     <Cropper
                     image={src}
@@ -136,24 +156,6 @@ const handlerEditPicture = () => {
                     onCropComplete={onCropComplete}
                     onZoomChange={setZoom}
                     />
-                    <div className={styles.image_tring_select}>
-                        <input type="file" id="editInputImage" className={styles.profile_image_icon_input}
-                            accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
-                            onChange={onSelectFile}
-                        />
-                        <IconButton onClick={handlerEditPicture}>
-                            <PhotoLibraryIcon /> 画像を選択
-                        </IconButton>    
-                        <Button
-                            // disabled={!profile?.nickName}
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            onClick={showCroppedImage}
-                        >
-                        適応
-                        </Button>
-                    </div>
                     <div className={styles.image_slider}>
                         <Slider
                             value={zoom}

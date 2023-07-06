@@ -8,5 +8,7 @@ export type ProfileBasicSchema = {
     is_active: boolean | null,
     update_at: string | null,
     image: string | null,
-    group: string | null
+    group: string | null,
+    rate4: number | null,
+    rate3: number | null,
 }

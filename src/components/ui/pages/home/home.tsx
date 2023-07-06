@@ -8,6 +8,7 @@ import styles from "./styles/Home.module.css";
 import PersonalRecord from './PersonalRecord';
 import { isProfileModalOpenState } from '../../../../states/HomeState';
 import Profile from './ProfileEdit';
+import CreateGroup from './CreateGroup';
 
 
 const Home:React.FC = () => {
@@ -52,6 +53,7 @@ const Home:React.FC = () => {
                     <div>
                         <PersonalRecord />
                     </div>
+                    <CreateGroup/>
                     <div>
                         <BelongGroupContainer />
                     </div>
