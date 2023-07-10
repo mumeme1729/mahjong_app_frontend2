@@ -1,5 +1,5 @@
 
 export type CommonResponse = {
     status: string
-    details: string | null
+    detail: string | null
   }

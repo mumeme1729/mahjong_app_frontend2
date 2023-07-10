@@ -12,3 +12,5 @@ export type ProfileBasicSchema = {
     rate4: number | null,
     rate3: number | null,
 }
+
+export type  ProfilesSchema =  ProfileBasicSchema[] | null

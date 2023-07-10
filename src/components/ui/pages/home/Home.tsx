@@ -12,7 +12,6 @@ import CreateGroup from './CreateGroup';
 
 
 const Home:React.FC = () => {
-    const setLoginUserInfo = useSetRecoilState(loginUserState);
     const setLoginUserTotalRecord = useSetRecoilState(loginUserTotalRecordState);
     const setIsProfileModalOpen = useSetRecoilState(isProfileModalOpenState)
     const loginuser = useRecoilValue(loginUserState);
@@ -20,9 +19,7 @@ const Home:React.FC = () => {
     useEffect(()=>{
         const fetchLoader = async ()=>{
             try {
-                const loginUserInfo = await getLoginUserinfo()
                 const loginUserTotalRecord = await getLoginUserTotalRecord(false);
-                setLoginUserInfo(loginUserInfo)
                 setLoginUserTotalRecord(loginUserTotalRecord)
             } catch (error) {
                 console.log(error)

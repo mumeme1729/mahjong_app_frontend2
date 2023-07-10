@@ -48,7 +48,7 @@ const Profile:React.FC = () => {
             const res = await putUpdateUserInfo(updateName, updateText, trimedImage)
             console.log(res);
             const updated_data:LoginUserInfo = {
-                image: loginuser?.image,
+                image: trimedImage?createImageURL(trimedImage): loginuser?.image,
                 nick_name:updateName,
                 introduction:updateText,
                 group:loginuser?.group
