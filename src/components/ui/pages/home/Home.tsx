@@ -21,6 +21,9 @@ const Home:React.FC = () => {
             try {
                 const loginUserTotalRecord = await getLoginUserTotalRecord(false);
                 setLoginUserTotalRecord(loginUserTotalRecord)
+                if(loginuser?.nick_name == null){
+                    setIsProfileModalOpen(true);
+                }
             } catch (error) {
                 console.log(error)
             }

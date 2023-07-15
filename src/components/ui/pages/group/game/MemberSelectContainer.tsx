@@ -4,12 +4,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styles from "../styles/Group.module.css";
 import { Button } from '@material-ui/core';
 import Modal from "react-modal";
+import dayjs, { Dayjs } from 'dayjs';
 import { useRecoilValue } from 'recoil';
 import { ProfilesState } from '../../../../../states/ProfilesState';
 import MemberCard from './MemberCard';
 import { ProfileBasicSchema } from '../../../../types/ProfileTypes';
 import GameMemberCard from './GameMemberCard';
-
+import { GameResultCreateSchema } from '../../../../types/GameTypes';
+import { postCreateGame } from '../../../../../lib/api/GameApi';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 const modalStyle={
     overlay: {
@@ -33,6 +39,14 @@ const MemberSelectContainer:React.FC = () => {
     const groupMemberProfiles = useRecoilValue(ProfilesState);
     const [openModal,setOpenModal]=useState(false);
     const posList = ["東", "南", "西", "北"]
+    const [uma, setUma] = useState('5-10');
+    const now = new Date();
+    const formattedDate = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}T${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    const [date, setDate] = useState<Dayjs | null>(dayjs(formattedDate));
+
+    // const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setDate(event.target.value);
+    // };
 
     type ProfileWithPosition = ProfileBasicSchema & {
         position: string;
@@ -65,22 +79,92 @@ const MemberSelectContainer:React.FC = () => {
         );
     };
 
+    function calcScor(member:ProfileWithPosition, index: number){
+        let ranklist: GameResultCreateSchema = {
+            rank: 0,
+            score: 0,
+            score_origin: 0,
+            profile: ''
+        };
+        // 五捨六入結果
+        let calcscore:number=0 
+        if(member.score !== null){
+            if(member?.score>=0){
+                let cscore=(member?.score+400)/1000;
+                cscore=Math.floor(cscore);
+                calcscore=cscore-30;
+            }else{
+                let cscore=(member?.score-400)/1000;
+                cscore=Math.ceil(cscore);
+                calcscore=cscore-30;
+            }
+        }
+        if(uma=="0"){
+            if(index===1){calcscore=calcscore+20;}
+            if(index===2){calcscore=calcscore;}
+            if(index===3){calcscore=calcscore;}
+            if(index===4){calcscore=calcscore};
+        }else if(uma==="5-10"){
+            if(index===1){calcscore=calcscore+20+10;}
+            if(index===2){calcscore=calcscore+5;}
+            if(index===3){calcscore=calcscore-5;}
+            if(index===4){calcscore=calcscore-10};
+        }else if(uma==="10-20"){
+            if(index===1){calcscore=calcscore+20+20;}
+            if(index===2){calcscore=calcscore+10;}
+            if(index===3){calcscore=calcscore-10;}
+            if(index===4){calcscore=calcscore-20};
+        }else if(uma==="10-30"){
+            if(index===1){calcscore=calcscore+20+30;}
+            if(index===2){calcscore=calcscore+10;}
+            if(index===3){calcscore=calcscore-10;}
+            if(index===4){calcscore=calcscore-30};
+        }
+
+        ranklist["rank"] = index;
+        ranklist["score"] = calcscore;
+        ranklist["score_origin"] = member.score!== null ? member.score : 0;
+        ranklist["profile"] = member.id !== null ? member.id : "";
+        return ranklist;
+    }
+    const sortedMembers = [...selectedMembers].sort((a, b) => {
+        if (a.score === null) return -1; // もしaのscoreがnullの場合、bを先に並べる
+        if (b.score === null) return 1; // もしbのscoreがnullの場合、aを先に並べる
+        return b.score - a.score; // scoreが大きい順に並べる
+      });
+
     const recordScore = async () => {
-        let ranklist: {id: number, score: number}[] = []
-        let sum = 0;
-        let allScoresEntered = true;
-      
-        selectedMembers.forEach(member => {
-          if (member.score !== null) {
-            sum += member.score;
-          } else {
-            console.log(member);
-            allScoresEntered = false;
-          }
-        });
-      
-        if (allScoresEntered && sum === 100000) {
-          console.log(selectedMembers.map((member, index) => `${index + 1}:${member.score}`).join(" "));
+        // ソート
+        try {
+            let sum = 0;
+            let allScoresEntered = true;
+            selectedMembers.forEach(member => {
+            if (member.score !== null) {
+                sum += member.score;
+            } else {
+                allScoresEntered = false;
+            }
+            });
+        
+            if (allScoresEntered && sum === 100000) {
+                    // Gameを作成する
+                let request_body:{is_sanma:boolean, group_id:string,date:string,game_results:GameResultCreateSchema[]} ={
+                    is_sanma: false,
+                    group_id: id!==undefined ? id : '',
+                    date: date !== null ? date.format('YYYY/MM/DD HH:mm:ss') : '',
+                    game_results: []
+                }
+                // ソート
+                sortedMembers.map((member, index) => (
+                    request_body["game_results"].push(calcScor(member, index+1))
+                ));
+                console.log(`時刻情報 => ${date}`)
+                await postCreateGame(request_body)
+                setOpenModal(false);
+                navigate(`/group/${id}`)
+            }
+        } catch (error) {
+            alert(error)   
         }
       }
 
@@ -125,6 +209,17 @@ const MemberSelectContainer:React.FC = () => {
                 {/* {startLoad && <CircularProgress/>} */}
                 {selectedMembers.length===4?
                     <div>
+                        <div>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                                    <DateTimePicker
+                                    label="Controlled picker"
+                                    value={date}
+                                    onChange={(newValue) => setDate(newValue)}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
                         {
                             selectedMembers.map(member => 
                                 <GameMemberCard 
@@ -140,7 +235,7 @@ const MemberSelectContainer:React.FC = () => {
                     </div>
                 }
                 <div>
-                    {/* <p>合計:{score1.score+score2.score+score3.score+score4.score}</p>
+                    <div>合計:{ selectedMembers.reduce((sum, member) => sum + (member.score || 0), 0)}</div>
                     <div className={styles.match_radio_box_container}>
                         <span>ウマ：</span>
                         <label>
@@ -170,7 +265,7 @@ const MemberSelectContainer:React.FC = () => {
                             />
                             10-20
                         </label>
-                        {/* <label>
+                         <label>
                             <input
                             type="radio"
                             value="10-30"
@@ -179,7 +274,7 @@ const MemberSelectContainer:React.FC = () => {
                             />
                             10-30
                         </label> 
-                    </div> */}
+                    </div>
                     <div className={styles.game_start_btn}>
                         <Button
                             disabled={

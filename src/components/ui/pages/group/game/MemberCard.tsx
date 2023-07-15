@@ -21,7 +21,7 @@ const MemberCard:React.FC<MemberCardProps> = ({ selectMember, position,...profil
                             </div>
                             <div>
                                 <div  className={styles.member_nick_name}>{profile?.nick_name}</div>
-                                <div  className={styles.member_rate}>{profile?.rate4}</div>
+                                <div  className={styles.member_rate}>{profile?.rank_name}</div>
                                 {position && <p>{position}</p>}
                             </div>
                         </div>

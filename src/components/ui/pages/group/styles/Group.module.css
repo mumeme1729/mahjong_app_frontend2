@@ -7,7 +7,7 @@
 }
 .group_home_body{
     display: flex;
-    background-color: blue;
+    /* background-color: blue; */
 }
 .match_total{
     text-align: center;
@@ -157,7 +157,7 @@
 .member_main_container{
     display: flex;
     justify-content: center;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 .member_main_body{
     width: 90%;
@@ -173,11 +173,15 @@
 }
 .member_body{
     margin-top: 5px;
-    width: 150px;
-    background-color: blue;
+    width: 135px;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: thick double #32a1ce;
 }
 .member_avater{
-    margin-left:20px;
+    margin-left:30px;
 }
 .member_user_btn:hover{
     opacity: 0.7;
@@ -188,14 +192,104 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 140px;
+    width: 135px;
 }
 .member_rate{
     font-size: 15px;
     font-family: 'Noto Sans JP', sans-serif;
-    width: 120px;
+    width: 135px;
+    line-height:0.95em;
+	font-weight:bold;
+	color: #01579B;
+	text-shadow: 0 0 0.2em rgba(255,255,255,1);
 }
 
+/* メンバー詳細 */
+.membder_detail_container{
+    /* background-color: #32a1ce; */
+}
+.member_detail_profile_conainer{
+    /* background-color: blueviolet; */
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #eeeeee;
+    border: 7px double #F082DE;
+}
+.member_detail_profile_body_left{
+}
+.member_detail_profile_body_right{
+    margin-left: 30px;
+}
+.member_detail_nick_name{
+    font-size: 40px;
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+    font-weight:bold;
+	/* color: #01579B;
+	text-shadow: 0 0 0.2em rgba(255,255,255,1); */
+    text-align: left;
+}
+
+.member_detail_rank{
+    font-size: 55px;
+    margin-left: -30px;
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 250px;
+}
+
+.member_detail_progress_container{
+    display: flex;
+}
+.member_detail_progress_number{
+    margin-left: 10px;
+    margin-top: -5px;
+}
+.member_detail_record_container{
+    /* background-color: red; */
+    display: flex;
+    width: 100%;
+}
+.member_detail_chart_conainer{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.member_detail_maxmin_score_container{
+    /* background-color: aqua; */
+    display: flex;
+    padding: 0px 10px;
+    width: 35%;
+}
+.member_detail_maxmin_score_body{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 30px;
+}
+.member_detail_grade_container{
+    /* background-color: burlywood; */
+    width: 65%;
+}
+.member_detail_grade_container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 30px
+}
+.member_detail_grade_body_left{
+    text-align: left;
+}
+.member_detail_grade_body_right{
+    text-align: left;
+}
+
+
+/* GAME セレクト */
 .game_selected_profile{
     opacity: 0.5;
     background-color: grey;
@@ -234,88 +328,7 @@
 .radar_chart{
     display: none;
 }
-/* メンバー詳細 */
-.memberdetail_container_top{
-    display: flex;
-    justify-content: center;
-}
-.memberdetail_container_top_body{
-    display:flex;
-}
-.game_start_btn{
-    text-align: center;
-    margin-top: 10px;
-}
-.memberdetail_prof{
-    width: 400px;
-    text-align: center;
-    margin-top: 80px;
-}
-.memberdetail_prof_p_container{
-    text-align: left;
-    margin-top: 6px;
-}
-.memberdetail_img{
-    text-align: left;
-    display: flex;
-}
-.memberdetail_img_status{
-    margin-left: 50px;
-}
-.memberdetail_img_status_img{
-    margin-left: -22px;
-    margin-top: -15px;
-}
-.memberdetail_img_status_mozi{
-    display: flex;
-    margin-left: -20px;
-}
-.memberdetail_img_status_icon{
-    margin-left: -28px;
-    margin-top: -10px;
-}
-.memberdetail_prof_p_name{
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 30px;
-    margin-top: -6px;
-}
-.memberdetail_prof_p{
-    font-family: 'Noto Sans JP', sans-serif;
-    margin-top: -8px;
-}
-.memberdetail_prof_avatar{
-    margin-left: 170px;
-    margin-bottom: 5px;
-}
-.match_recode_not_exist{
-    text-align: center;
-}
-.memberdetail_mid_container{
-    display: flex;
-    justify-content: center;
-}
-.label_y{
-    background-color:white;
-    margin-top: -18px;
-    margin-right: -57px;
-    z-index: 2;
-}
-.label_y_p_1{
-    margin-top: 11px;
-    font-size: 15px;
-}
-.label_y_p_2{
-    margin-top: 25px;
-    font-size: 15px;
-}
-.label_y_p_3{
-    margin-top: 27px;
-    font-size: 15px;
-}
-.label_y_p_4{
-    margin-top: 27px;
-    font-size: 15px;
-}
+
 /* 設定モーダル */
 .leavegroup{
     font-size: 8px;
@@ -408,32 +421,7 @@
         width: 100%;
         flex-wrap: wrap;
     }
-    /* メンバー詳細 */
-    .memberdetail_container_top{
-        display: flex;
-        justify-content: center;
-    }
-    .memberdetail_container_top_body{
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-    }
-    .memberdetail_prof{
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-    .memberdetail_prof_avatar{
-       
-        margin-bottom: 5px;
-    }
-    .memberdetail_chart{
-        display: flex;
-        justify-content: center;
-        width: 96%;
-    }
+
     /* 記録 */
     .match_recode_table{
         display: flex;
@@ -516,12 +504,5 @@
     /* メンバー一覧 */
     .game_main_body{
         margin-left: 25px;
-    }
-    /* メンバー詳細 */
-    .memberdetail_prof{
-        width: 99%;
-    }
-    .memberdetail_prof_avatar{
-        margin-left: 0px;
     }
 }

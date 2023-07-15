@@ -10,6 +10,7 @@ type GameResultType= GameResultSchema| null
   key: 'selectedGroupState',
   default: null,
   dangerouslyAllowMutability: true,
+  
 });
 
 //  選択したグループの直近の対局

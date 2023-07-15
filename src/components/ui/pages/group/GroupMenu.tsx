@@ -22,7 +22,7 @@ const GroupMenu:React.FC = () => {
                         <h3 className={styles.hgrouphome_menu_btn_h3}>メンバー</h3>
                     </div>
                     <br/>
-                    <div className={styles.grouphome_btn} onClick={()=>{window.scrollTo(0, 0);}}>
+                    <div className={styles.grouphome_btn} onClick={()=>{navigate(`/group/${id}/record`);window.scrollTo(0, 0);}}>
                         <h3 className={styles.hgrouphome_menu_btn_h3}>対局記録</h3>
                     </div>
                     <br/>

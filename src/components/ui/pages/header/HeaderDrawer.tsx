@@ -62,7 +62,7 @@ const HeaderDrawer:React.FC = () => {
                         <div className={styles.header_navbar_menu} onClick={()=>{navigate(`group/${location.pathname.split("/")[2]}/member`);window.scrollTo(0, 0);setOpenMenu(false)}}>
                             <AccountBoxIcon/><h4 className={styles.header_navbar_menu_title}>メンバー</h4>
                         </div>
-                        <div className={styles.header_navbar_menu}onClick={()=>{window.scrollTo(0, 0);setOpenMenu(false)}}>
+                        <div className={styles.header_navbar_menu}onClick={()=>{navigate(`group/${location.pathname.split("/")[2]}/record`);window.scrollTo(0, 0);setOpenMenu(false)}}>
                             <MenuBookIcon/><h4 className={styles.header_navbar_menu_title}>記録</h4>
                         </div>
                     </>

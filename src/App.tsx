@@ -19,6 +19,8 @@ import { useAuth } from './FirebaseAuthCustomHook';
 import GroupHome from './components/ui/pages/group/GroupHome';
 import GroupMember from './components/ui/pages/group/member/MemberContainer';
 import MemberSelectContainer from './components/ui/pages/group/game/MemberSelectContainer';
+import GameRecordContainer from './components/ui/pages/game/GameRecordContainer';
+import MemberDetail from './components/ui/pages/group/member/MemberDetail';
 
 
 function App() {
@@ -40,7 +42,9 @@ function App() {
                   <Route path="/" element={user? <Home/>:<Navigate replace to="/login" />}/>
                   <Route path="/group/:id" element={user? <GroupHome/>:<Navigate replace to="/login" /> }/>
                   <Route path="/group/:id/member" element={user? <GroupMember/>:<Navigate replace to="/login" /> }/>
+                  <Route path="/group/:id/member/:profile_id" element={user? <MemberDetail/>:<Navigate replace to="/login" /> }/>
                   <Route path="/group/:id/game" element={user? <MemberSelectContainer/>:<Navigate replace to="/login" /> }/>
+                  <Route path="/group/:id/record" element={user? <GameRecordContainer/>:<Navigate replace to="/login" /> }/>
               </Routes>
             </>
           )
