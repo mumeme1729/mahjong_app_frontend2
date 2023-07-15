@@ -46,17 +46,19 @@
 .results_table_p{
     display:inline;
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
 }
 .results_table_p_blue{
     color: blue;
     display:inline;
     font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
 }
 .results_table_p_red{
     color: red;
     display:inline;
     font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
 }
 .group_home_results{
     margin-top: -15px;

@@ -1,12 +1,28 @@
 import React,{useEffect, useState} from 'react'
-import { Link, useLocation,useParams} from 'react-router-dom';
 import styles from "./styles/Header.module.css";
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useNavigate } from "react-router-dom";
+
 import HeaderDrawer from './HeaderDrawer';
+import { getLoginUserTotalRecord, getLoginUserinfo } from '../../../../lib/api/UserApi';
+import { useSetRecoilState } from 'recoil';
+import { loginUserState } from '../../../../states/UserState';
+
 
 
 const Header:React.FC = () => {
+    const setLoginUserInfo = useSetRecoilState(loginUserState);
+    useEffect(()=>{
+        const fetchLoader = async ()=>{
+            try {
+                const loginUserInfo = await getLoginUserinfo()
+                setLoginUserInfo(loginUserInfo)
+            } catch (error) {
+                // alert(error)
+                console.log(error)
+            }
+        }
+       fetchLoader()
+    },[]);
+
     return (
         <>
             <div className={styles.header_container}>

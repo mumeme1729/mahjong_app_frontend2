@@ -6,6 +6,11 @@ import PhotoIcon from '@material-ui/icons/Photo';
 // import { File } from "../../../types";
 import { Navigate } from 'react-router-dom';
 import styles from "./styles/Home.module.css";
+import ImageTrimming from '../../../features/ImageTrimming';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { isImageTrimmingModalOpenState, trimedImageState } from '../../../../states/ImageTrimmingState';
+import { postCreateGroup } from '../../../../lib/api/GroupApi';
+import { useNavigate } from 'react-router-dom';
 const modalStyle={
     overlay: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -22,23 +27,40 @@ const modalStyle={
       },
 };
 
+
 const CreateGroup:React.FC = () => {
     const [openModal,setOpenModal]=useState<boolean>(false);
     const [groupName,setGroupName]=useState("")
     const [text,setText]=useState("")
     const [password,setPassword]=useState("")
-    const [image, setImage] = useState<File | null>(null);
-    let url="";
-    const handlerEditPicture = () => {
-        const fileInput = document.getElementById("imageInput");
-        fileInput?.click();
+    const setIsImageTrimmingModalOpen = useSetRecoilState(isImageTrimmingModalOpenState);
+    const setTrimedImage = useSetRecoilState(trimedImageState)
+    const trimedImage = useRecoilValue(trimedImageState)
+    const navigate = useNavigate();
+
+    const createImageURL = (data:File) =>{
+        const imageURL = window.URL.createObjectURL(data);
+        return imageURL
+    }
+
+    const createGroup = async () => {
+        try {
+            // 更新データ送信
+            const res = await postCreateGroup(groupName?groupName:"", password?password:"",text, trimedImage)
+            console.log(res);
+            setOpenModal(false);
+            if (res.detail !== null && res.status === 'ok'){
+                navigate(`/group/${res.detail}`)
+            }
+                
+        } catch (error) {
+            console.log(error)
+        }
+        
     };
 
-    if(image!==null){
-    var binaryData = [];
-    binaryData.push(image);
-    url=window.URL.createObjectURL(new Blob(binaryData, {type: "image/*"}))
-    }
+
+
     return (
         <>
             <div className={styles.create_group_container}>
@@ -50,8 +72,7 @@ const CreateGroup:React.FC = () => {
                 isOpen={openModal}
                 onRequestClose={()=>{
                     setOpenModal(false);
-                    url="";
-                    setImage(null);
+                    setTrimedImage(null);
                 }}
                 style={modalStyle}
                 ariaHideApp={false}
@@ -86,25 +107,20 @@ const CreateGroup:React.FC = () => {
                         type="text"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <input
-                        type="file"
-                        id="imageInput"
-                        hidden={true}
-                        onChange={(e) => setImage(e.target.files![0])}
-                    />
                     <br />
-                    <IconButton onClick={handlerEditPicture}>
+                    <IconButton onClick={()=>{setIsImageTrimmingModalOpen(true);}}>
                         <PhotoIcon />
                     </IconButton>
+                    <ImageTrimming/>
                     <div>
-                        {url!==""?<img src={url} height="90px" alt="same_img"/>:null}
+                        {trimedImage!==null?<img src={createImageURL(trimedImage)} height="90px" alt="same_img"/>:null}
                     </div>
                     <br />
                     <Button
                         disabled={!(groupName &&groupName.length<=30)}
                         variant="contained"
                         color="primary"
-                        onClick={()=>{}}
+                        onClick={()=>{createGroup()}}
                     >
                         作成
                     </Button>

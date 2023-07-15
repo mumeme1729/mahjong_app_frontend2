@@ -17,7 +17,6 @@ import Home from '../home/Home';
 const Auth:React.FC = () => {
     // const location = useLocation();
     const [isOpenSignIn, setIsOpenSignIn] = useState(true);
-    const auth = useRecoilValue(authState);
     const navigate = useNavigate();
 
     useEffect(() => {

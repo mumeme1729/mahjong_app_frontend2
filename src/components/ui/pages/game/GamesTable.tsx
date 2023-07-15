@@ -3,20 +3,12 @@ import React,{useEffect,useState }  from 'react'
 import styles from "./styles/Group.module.css";
 import gameResultStyles from "../../../../assets/css/GameResultTable.module.css"
 import { Button, CircularProgress, makeStyles, TextField,} from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 
-// import Modal from "react-modal";
-import groupImage from '../../../../assets/img/zunda.jpg';
-import { useRecoilValue } from 'recoil';
-import { recentlyGamesState, selectedGroupState } from '../../../../states/GroupState';
-import GameResultContainer from '../game/GameResultContainer';
+import GameResultContainer from './GameResultContainer';
+import { GameResultSchema } from '../../../types/GameTypes';
 
-const RecentlyGameContainer:React.FC = () => {
-    const recentlyGame = useRecoilValue(recentlyGamesState);
+const GamesTable:React.FC<GameResultSchema> = (gameResult) => {
+    
     return (
         <>
             <div className={gameResultStyles.table}>
@@ -36,9 +28,9 @@ const RecentlyGameContainer:React.FC = () => {
                         </div>
                     </div>
                 </div>
-                {Object.keys(recentlyGame).map((key)=>(
+                {Object.keys(gameResult).map((key)=>(
                     <div  key={key}>
-                        <GameResultContainer  gameresults={recentlyGame[key]}/>
+                        <GameResultContainer  gameresults={gameResult[key]}/>
                     </div>
                 ))}
             </div>
@@ -46,4 +38,4 @@ const RecentlyGameContainer:React.FC = () => {
     )
 }
 
-export default RecentlyGameContainer
+export default GamesTable
