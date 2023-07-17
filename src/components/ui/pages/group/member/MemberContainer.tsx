@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styles from "../styles/Group.module.css";
 import { useRecoilValue } from 'recoil';
 import { ProfilesState } from '../../../../../states/ProfilesState';
-import {getRankColorClass} from '../../../../../utils/common/func'
+import {getRankColorClass} from '../../../../../utils/common/func';
 
 
 
