@@ -5,11 +5,11 @@ import * as Yup from "yup";
 import Modal from "react-modal";
 import styles from './styles/Auth.module.css';
 import { firebaseAuth } from '../../../../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { postUserRegister} from '../../../../lib/api/AuthApi';
-import { UserRegist } from '../../../types/AuthTypes'
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import { CommonResponse } from '../../../types/CommonTypes';
+import { isProfileModalOpenState } from '../../../../states/HomeState';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { authState } from '../../../../states/AuthState';
 const modalStyle={
     overlay: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -28,7 +28,9 @@ const SignUp = () => {
     const [sendEmail,setSendEmail]=useState(false);
     const [successCreateAccount,setSuccessCreateAccount]=useState(false);
     const [signUpErrorMessage, setSignUpErrorMessage]=useState("このメールアドレスは既に登録されています")
+    const setAuth = useSetRecoilState(authState);
     const navigate = useNavigate();
+
     return (
       <>
       <div className="auth_container">
@@ -42,17 +44,29 @@ const SignUp = () => {
                       values.email,
                       values.password
                     );
-                    const register_data:UserRegist = {
-                        firebase_uid: res.user.uid,
-                        is_active:true
-                    }
+                    // この時点でログインさせる
+                    const auth = await signInWithEmailAndPassword(
+                        firebaseAuth,
+                        values.email,values.password
+                    )
 
-                    const registerUser:CommonResponse = await postUserRegister(register_data)
-                    if (registerUser.status=="ok"){
-                        navigate("/")
+                    if (auth.user) {
+                        setAuth(auth.user);
+                        // if(auth.user.emailVerified){
+                        //     setAuth(auth.user);
+                        //     navigate("/");
+                        // } else{
+                        //     setLoginErrorMessage("メールアドレス認証が行われておりません")
+                        //     setfalseLogin(true);
+                        // }
                     }else{
-                        setSuccessCreateAccount(true)
+                        alert("ログイン失敗")
                     }
+                    const actionCodeSettings = {
+                        url: 'http://localhost:3000/varify_email' ,
+                    }  
+                    await sendEmailVerification(res.user, actionCodeSettings)
+                    navigate("/sent_email")
                   } catch(error) {
                     alert(error);
                   }
@@ -175,3 +189,5 @@ const SignUp = () => {
 }
 
 export default SignUp
+
+

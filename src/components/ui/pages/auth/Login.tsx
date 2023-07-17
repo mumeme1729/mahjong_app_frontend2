@@ -43,19 +43,17 @@ const Login:React.FC = () => {
                             firebaseAuth,
                             values.email,values.password
                         )
-                        if (auth.user) {
+
+                        if(auth.user.emailVerified){
                             setAuth(auth.user);
                             navigate("/");
-                            // if(auth.user.emailVerified){
-                            //     setAuth(auth.user);
-                            //     navigate("/");
-                            // } else{
-                            //     setLoginErrorMessage("メールアドレス認証が行われておりません")
-                            //     setfalseLogin(true);
-                            // }
+                        } else{
+                            setLoginErrorMessage("メールアドレス認証が行われておりません")
+                            setfalseLogin(true);
                         }
+
                     } catch (error) {
-                        
+                        alert(error);
                     }
                 }}
                 //バリデーション

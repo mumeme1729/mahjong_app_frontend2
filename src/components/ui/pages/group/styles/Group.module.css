@@ -200,8 +200,12 @@
     width: 135px;
     line-height:0.95em;
 	font-weight:bold;
-	color: #01579B;
+	/* color: #01579B; */
 	text-shadow: 0 0 0.2em rgba(255,255,255,1);
+}
+/* レートごとの色 */
+.font_color_gray{
+    color: gray;
 }
 
 /* メンバー詳細 */

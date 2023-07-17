@@ -3,6 +3,7 @@ import React from 'react'
 import styles from "../styles/Group.module.css";
 import { Button } from '@material-ui/core';
 import { ProfileBasicSchema } from '../../../../types/ProfileTypes';
+import { getRankColorClass } from '../../../../../utils/common/func';
 
 type MemberCardProps = {
     selectMember: (profile: ProfileBasicSchema) => void;
@@ -21,7 +22,7 @@ const MemberCard:React.FC<MemberCardProps> = ({ selectMember, position,...profil
                             </div>
                             <div>
                                 <div  className={styles.member_nick_name}>{profile?.nick_name}</div>
-                                <div  className={styles.member_rate}>{profile?.rank_name}</div>
+                                <div  className={`${styles.member_rate} ${getRankColorClass(profile?.rank_name)}`}>{profile?.rank_name}</div>
                                 {position && <p>{position}</p>}
                             </div>
                         </div>

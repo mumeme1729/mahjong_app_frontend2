@@ -14,15 +14,20 @@ import CreateGroup from './CreateGroup';
 const Home:React.FC = () => {
     const setLoginUserTotalRecord = useSetRecoilState(loginUserTotalRecordState);
     const setIsProfileModalOpen = useSetRecoilState(isProfileModalOpenState)
-    const loginuser = useRecoilValue(loginUserState);
+    const setLoginUserInfo = useSetRecoilState(loginUserState);
+    const loginUser = useRecoilValue(loginUserState);
 
     useEffect(()=>{
         const fetchLoader = async ()=>{
             try {
+                const loginUserInfoRes = await getLoginUserinfo()
+                setLoginUserInfo(loginUserInfoRes)
                 const loginUserTotalRecord = await getLoginUserTotalRecord(false);
                 setLoginUserTotalRecord(loginUserTotalRecord)
-                if(loginuser?.nick_name == null){
+                if(loginUser?.nick_name === null){
                     setIsProfileModalOpen(true);
+                }else{
+                    setIsProfileModalOpen(false);
                 }
             } catch (error) {
                 console.log(error)
@@ -39,15 +44,15 @@ const Home:React.FC = () => {
                         <div className={styles.navmune_profile_avater}>
                             <Button onClick={()=>{setIsProfileModalOpen(true)}}>
                                 {
-                                    loginuser?.image !== null?
-                                        <Avatar alt="who?" src={loginuser?.image} style={{height:'70px',width:'70px'}}/>
+                                    loginUser?.image !== null?
+                                        <Avatar alt="who?" src={loginUser?.image} style={{height:'70px',width:'70px'}}/>
                                     :
                                         <Avatar alt="who?" src={""} style={{height:'70px',width:'70px'}}/>
                                 }
                             </Button>
                         </div>
                         <div className={styles.home_profile_nickname_container}>
-                            <div className={styles.home_nick_name}>{loginuser?.nick_name}</div>
+                            <div className={styles.home_nick_name}>{loginUser?.nick_name}</div>
                         </div>
                     </div>
                     <div>

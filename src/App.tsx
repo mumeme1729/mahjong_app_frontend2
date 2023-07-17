@@ -21,6 +21,8 @@ import GroupMember from './components/ui/pages/group/member/MemberContainer';
 import MemberSelectContainer from './components/ui/pages/group/game/MemberSelectContainer';
 import GameRecordContainer from './components/ui/pages/game/GameRecordContainer';
 import MemberDetail from './components/ui/pages/group/member/MemberDetail';
+import SentEmail from './components/ui/pages/auth/SentEmail';
+import VerifyEmail from './components/ui/pages/auth/VerifyEmail';
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
              <Header/>
               <Routes>
                   <Route path="/login" element={<Auth />} />
+                  <Route path="/sent_email" element={<SentEmail />}/>
+                  <Route path="/varify_email" element={<VerifyEmail />}/>
                   <Route path="/" element={user? <Home/>:<Navigate replace to="/login" />}/>
                   <Route path="/group/:id" element={user? <GroupHome/>:<Navigate replace to="/login" /> }/>
                   <Route path="/group/:id/member" element={user? <GroupMember/>:<Navigate replace to="/login" /> }/>
@@ -47,7 +51,7 @@ function App() {
                   <Route path="/group/:id/record" element={user? <GameRecordContainer/>:<Navigate replace to="/login" /> }/>
               </Routes>
             </>
-          )
+           )
         }
         </BrowserRouter>
         </ApiClientProvider>
