@@ -1,30 +1,8 @@
 import { Avatar, TextField,} from '@material-ui/core';
-import React,{useEffect,useState} from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import React from 'react'
 import styles from "../styles/Group.module.css";
-import { Button } from '@material-ui/core';
-import Modal from "react-modal";
-import { useRecoilValue } from 'recoil';
-import { ProfilesState } from '../../../../../states/ProfilesState';
-import MemberCard from './MemberCard';
 import { ProfileBasicSchema } from '../../../../types/ProfileTypes';
 
-
-const modalStyle={
-    overlay: {
-        background: 'rgba(0, 0, 0, 0.2)',
-        zIndex:2,
-      },
-    content: {
-        
-        top: "50%",
-      left: "50%",
-      backgroundColor: 'white',
-      width: 260,
-      height: 450,
-      transform: "translate(-50%, -50%)",
-      },
-};
 
 type GameMemberCardProps = {
     setScore: (score: number) => void;

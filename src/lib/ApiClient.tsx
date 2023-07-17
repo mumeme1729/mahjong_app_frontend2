@@ -9,7 +9,6 @@ const apiClient = axios.create({
 });
 
 export function ApiClientProvider({children}: {children: React.ReactElement[]| React.ReactElement}){
-    // const user = useRecoilValue(authState);
     useEffect(()=>{
         const requestInterceptors = apiClient.interceptors.request.use(async(config) => {
             const currentUser = firebaseAuth.currentUser;

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styles from "../styles/Group.module.css";
 import { useRecoilValue } from 'recoil';
 import { ProfilesState } from '../../../../../states/ProfilesState';
+import {getRankColorClass} from '../../../../../utils/common/func'
 
 
 
@@ -11,23 +12,6 @@ const GroupMember:React.FC = () => {
     const navigate = useNavigate();
     const setGroupMemberProfiles = useRecoilValue(ProfilesState);
     const {id} = useParams();
-
-    const getColorClass = (rank:string) => {
-        switch (rank) {
-          case "初心":
-            return 'red';
-          case "雀士":
-            return 'green';
-          case "雀士2":
-            return 'blue';
-          case "雀士3":
-            return 'yellow';
-          case "雀傑":
-            return 'purple';
-          default:
-            return '';
-        }
-    };
 
     return (
         <div>
@@ -50,7 +34,7 @@ const GroupMember:React.FC = () => {
                                             </div>
                                             <div>
                                                 <div  className={styles.member_nick_name}>{profile?.nick_name}</div>
-                                                <div  className={styles.member_rate}>{profile?.rank_name}</div>
+                                                <div  className={`${styles.member_rate} ${getRankColorClass(profile.rank_name)}`}>{profile?.rank_name}</div>
                                             </div>
                                         </div>
                                     </Button>

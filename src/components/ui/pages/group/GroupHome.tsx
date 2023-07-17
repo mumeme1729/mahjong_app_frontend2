@@ -14,6 +14,8 @@ import JoinGroup from './JoinGroup';
 import { ProfilesState } from '../../../../states/ProfilesState';
 import { group } from 'console';
 import { authState } from '../../../../states/AuthState';
+import { getLoginUserinfo } from '../../../../lib/api/UserApi';
+import { LoginUserInfo } from '../../../types/UserTypes';
 const modalStyle={
     overlay: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -38,49 +40,56 @@ const GroupHome:React.FC = () => {
     const auth = useRecoilValue(authState)
     const loginuser = useRecoilValue(loginUserState);
     const [isJoined, setIsJoined] = useState<boolean>(false);
+    const setLoginUserInfo = useSetRecoilState(loginUserState);
     useEffect(() => {
         const fetchLoader = async () => {
-          if (id !== undefined) {
-            try {
-                const selectedGroupInfo = await getSelectedGroupInfo(id);
-                setSelectedGroupInfo(selectedGroupInfo);
-                const recentlyGamesRes = await getRecentlyGames(id);
-                setRecentlyGames(recentlyGamesRes);
-                const groupMemberProfiles = await getProfiles(id);
-                setGroupMemberProfiles(groupMemberProfiles)
-                isJoinedGroup()
-            } catch (error) {
-                // alert(error)
+            console.log("group home");
+            if (id !== undefined) {
+                try {
+                    const loginUserInfoRes = await getLoginUserinfo()
+                    setLoginUserInfo(loginUserInfoRes)
+                    isJoinedGroup(loginUserInfoRes) // Pass the new state directly
+                    const selectedGroupInfo = await getSelectedGroupInfo(id);
+                    setSelectedGroupInfo(selectedGroupInfo);
+                    const recentlyGamesRes = await getRecentlyGames(id);
+                    setRecentlyGames(recentlyGamesRes);
+                    const groupMemberProfiles = await getProfiles(id);
+                    setGroupMemberProfiles(groupMemberProfiles)
+                } catch (error) {
+                    // alert(error)
+                }
             }
-          }
         };
         fetchLoader();
-      }, [id,isJoined]);
+    }, [id]);
 
-      useEffect(() => {
-        const fetchLoader = async () => {
-          if (id !== undefined) {
-            try {
-                isJoinedGroup()
-            } catch (error) {
-                // alert(error)
+    useEffect(() => {
+        if (id !== undefined) {
+            isJoinedGroup(loginuser);
+        }
+    }, [loginuser, id]);
+
+    const isJoinedGroup = (loginUserInfo:LoginUserInfo|null) => {
+        if(loginUserInfo?.group?.length !== 0 || loginUserInfo?.group !== null || loginUserInfo?.group !== undefined ){
+            const isAlreadyJoined = loginUserInfo?.group?.some(group => group.id === id);
+            if (isAlreadyJoined !== isJoined && isAlreadyJoined !== undefined) {
+                setIsJoined(isAlreadyJoined);
             }
-          }
-        };
-        fetchLoader();
-      }, [loginuser]);
+        }
+    }
 
     const isJoinedState = (isJoinedState:boolean)=>{
         setIsJoined(isJoinedState)
     }
     
-    const isJoinedGroup = () =>{
-        if(loginuser?.group?.length !== 0 || loginuser?.group !== null ||loginuser?.group !== undefined ){
-            loginuser?.group?.map((group:GroupBasicSchema)=>(
-                group.id === id? setIsJoined(true):null
-            ));
-        }
-    }
+    // const isJoinedGroup = () =>{
+    //     if(loginuser?.group?.length !== 0 || loginuser?.group !== null ||loginuser?.group !== undefined ){
+    //         const isAlreadyJoined = loginuser?.group?.some(group => group.id === id);
+    //         if (isAlreadyJoined !== isJoined && isAlreadyJoined!==undefined) {
+    //             setIsJoined(isAlreadyJoined);
+    //         }
+    //     }
+    // }
     
     return (
         <>

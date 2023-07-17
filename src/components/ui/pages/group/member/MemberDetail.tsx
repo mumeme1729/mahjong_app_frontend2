@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { getPersonalRecordPerProfile } from '../../../../../lib/api/GroupApi';
 import { PersonalRecordPerProfileSchema } from '../../../../types/ProfileTypes';
 import { LineChart, Line, CartesianGrid, YAxis } from 'recharts';
+import {getRankColorClass} from '../../../../../utils/common/func';
 
 const MemberDetail:React.FC = () => {
     const {id, profile_id} = useParams();
@@ -39,7 +40,7 @@ const MemberDetail:React.FC = () => {
                                     <div className={styles.member_detail_nick_name}>{personalRecord.nick_name}</div>
                                 </div>
                                 <div>
-                                    <div className={styles.member_detail_rank}>{personalRecord.rank_name}</div>
+                                    <div className={`${styles.member_detail_rank} ${getRankColorClass(personalRecord.rank_name)}`}>{personalRecord.rank_name}</div>
                                 </div>
                                 {personalRecord.rate4!== null && personalRecord.rate4!==undefined && personalRecord.point!==null &&  personalRecord.point!==undefined && (
                                     <div className={styles.member_detail_progress_container}>

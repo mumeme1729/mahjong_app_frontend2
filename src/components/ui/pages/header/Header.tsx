@@ -1,27 +1,32 @@
 import React,{useEffect, useState} from 'react'
 import styles from "./styles/Header.module.css";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import HeaderDrawer from './HeaderDrawer';
 import { getLoginUserTotalRecord, getLoginUserinfo } from '../../../../lib/api/UserApi';
-import { useSetRecoilState } from 'recoil';
+import {RecoilRoot, useSetRecoilState} from "recoil"
 import { loginUserState } from '../../../../states/UserState';
+import { authState } from '../../../../states/AuthState';
 
 
 
 const Header:React.FC = () => {
     const setLoginUserInfo = useSetRecoilState(loginUserState);
-    useEffect(()=>{
-        const fetchLoader = async ()=>{
-            try {
-                const loginUserInfo = await getLoginUserinfo()
-                setLoginUserInfo(loginUserInfo)
-            } catch (error) {
-                // alert(error)
-                console.log(error)
-            }
-        }
-       fetchLoader()
-    },[]);
+    const navigate = useNavigate();
+    // useEffect(()=>{
+    //     const fetchLoader = async ()=>{
+    //         try {
+    //             // ログインしていたら
+    //             console.log("aaaaa")
+    //             // const loginUserInfo = await getLoginUserinfo()
+    //             // setLoginUserInfo(loginUserInfo)
+    //         } catch (error) {
+    //             alert(error)
+    //             console.log(error)
+    //             // navigate("/login")
+    //         }
+    //     }
+    //    fetchLoader()
+    // },[]);
 
     return (
         <>
@@ -37,3 +42,7 @@ const Header:React.FC = () => {
 }
 
 export default Header
+function useRecoilValue(authState: any) {
+    throw new Error('Function not implemented.');
+}
+

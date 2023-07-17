@@ -1,7 +1,9 @@
 import { atom } from 'recoil';
 import firebase from 'firebase/auth';
 import { LoginUserInfo, LoginUserTotalRecord } from '../components/types/UserTypes';
+import { recoilPersist } from "recoil-persist";
 
+const { persistAtom } = recoilPersist();
 type LoginUserState = LoginUserInfo| null;
 type loginUserTotalRecordState =  LoginUserTotalRecord | null;
 
@@ -10,6 +12,7 @@ type loginUserTotalRecordState =  LoginUserTotalRecord | null;
   key: 'loginUserState',
   default: null,
   dangerouslyAllowMutability: true,
+  effects_UNSTABLE: [persistAtom]
 });
 
 // ログインしているユーザーのトータル成績

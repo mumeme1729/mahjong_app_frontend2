@@ -2,13 +2,7 @@ import React, {  useState, useEffect } from 'react'
 import SignUp from './SignUp';
 import Login from './Login';
 import styles from './styles/Auth.module.css';
-import {Button,TextField} from "@material-ui/core";
-import img from '../../../img/fish_shark.png';
-import titlelogo from '../../../img/title_logo.jpg'
 import { firebaseAuth } from '../../../../firebase';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {authState} from '../../../../states/AuthState';
-import firebase from 'firebase/auth';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import Home from '../home/Home';
@@ -22,7 +16,7 @@ const Auth:React.FC = () => {
     useEffect(() => {
         onAuthStateChanged(firebaseAuth, (currentUser) => {
           // if(currentUser && currentUser.emailVerified){
-          if(currentUser){
+          if(currentUser && currentUser.emailVerified){
             navigate("/")
           }
         });
@@ -36,7 +30,8 @@ const Auth:React.FC = () => {
                         <div className={styles.auth_body_header}>
                             <br/>
                             <br/>
-                            <h1 className={styles.auth_title_h1}>闘牌記β版</h1>
+                            <h1 className={styles.auth_title_h1}>闘牌記 β版</h1>
+                            <br/>
                             <p className={styles.auth_title_p}>グループごとに麻雀の成績を管理</p>
                         </div>
                         <div className={styles.auth_login_signup_container}>

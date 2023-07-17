@@ -11,7 +11,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CreateIcon from '@material-ui/icons/Create';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { loginUserState } from '../../../../states/UserState';
 
 const HeaderDrawer:React.FC = () => {
@@ -19,10 +19,12 @@ const HeaderDrawer:React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const setLoginUserInfo = useSetRecoilState(loginUserState);
+    const loginuser = useRecoilValue(loginUserState);
     const logout = async () => {
         setOpenMenu(false)
         await signOut(firebaseAuth);
         setLoginUserInfo(null);
+        localStorage.clear();
         navigate("/login");
       }
     return(
@@ -36,8 +38,10 @@ const HeaderDrawer:React.FC = () => {
                 onClose={() => {
                     setOpenMenu(false)
                 }}
-            >
-                <div className={styles.drawer}>
+            >   {
+                    loginuser
+                    ?
+                    <div className={styles.drawer}>
                     <div className={styles.navmune_profile_nickname}>
                         <p className={styles.header_nickname}>{"テストニックネーム"}</p>  
                     </div>
@@ -68,6 +72,9 @@ const HeaderDrawer:React.FC = () => {
                     </>
                     :null}
                 </div>
+                    :null
+                }
+                
             </Drawer>
         </>
     )
