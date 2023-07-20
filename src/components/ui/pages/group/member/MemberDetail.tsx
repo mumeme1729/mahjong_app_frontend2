@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getPersonalRecordPerProfile } from '../../../../../lib/api/GroupApi';
 import { PersonalRecordPerProfileSchema } from '../../../../types/ProfileTypes';
-import { LineChart, Line, CartesianGrid, YAxis } from 'recharts';
+import { LineChart, Line, CartesianGrid, YAxis, ResponsiveContainer } from 'recharts';
 import {getRankColorClass} from '../../../../../utils/common/func';
 
 const MemberDetail:React.FC = () => {
@@ -51,11 +51,13 @@ const MemberDetail:React.FC = () => {
                             </div>
                         </div>
                         <div className={styles.member_detail_chart_conainer}>
-                            <LineChart  width={380} height={120} data={personalRecord.recent_rank.reverse()} margin={{ top: 15, right: 5, bottom: 5, left: -20 }}>
+                        <ResponsiveContainer width={'100%'} height={120} className={styles.LineChart}>
+                            <LineChart data={personalRecord.recent_rank.reverse()} margin={{ top: 15, right: 5, bottom: 5, left: -20 }}>
                                 <CartesianGrid stroke="#ccc" />
                                 <YAxis type="number" ticks={[1,2,3,4]} tickSize={0} reversed domain={[1,4]}/>
                                 <Line  dataKey="rank" stroke="#8884d8" strokeWidth={4}  dot={{ stroke: 'blue', strokeWidth: 3 }} isAnimationActive={false}/>
                             </LineChart>
+                        </ResponsiveContainer>
                         </div>
                         <div className={styles.member_detail_record_container}>
                             <div className={styles.member_detail_maxmin_score_container}>
