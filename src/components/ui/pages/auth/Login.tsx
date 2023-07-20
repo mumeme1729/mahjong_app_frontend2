@@ -7,7 +7,7 @@ import { firebaseAuth } from '../../../../firebase';
 import { useSetRecoilState } from 'recoil';
 import {authState} from '../../../../states/AuthState';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const modalStyle={
     overlay: {
@@ -29,7 +29,7 @@ const Login:React.FC = () => {
     const [loginErrorMessage, setLoginErrorMessage]=useState("ログインに失敗しました");
     const [isloginloading,setIsLoginLoading]=useState(false);
     const navigate = useNavigate();
-
+    const location = useLocation();
     return (
 
         <div className="auth_container">
@@ -46,7 +46,8 @@ const Login:React.FC = () => {
 
                         if(auth.user.emailVerified){
                             setAuth(auth.user);
-                            navigate("/");
+                            let redirectPath = location.state?.from || '/';
+                            navigate(redirectPath);
                         } else{
                             setLoginErrorMessage("メールアドレス認証が行われておりません")
                             setfalseLogin(true);
