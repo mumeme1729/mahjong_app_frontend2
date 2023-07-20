@@ -23,7 +23,7 @@ import GameRecordContainer from './components/ui/pages/game/GameRecordContainer'
 import MemberDetail from './components/ui/pages/group/member/MemberDetail';
 import SentEmail from './components/ui/pages/auth/SentEmail';
 import VerifyEmail from './components/ui/pages/auth/VerifyEmail';
-
+import { Blocks } from  'react-loader-spinner'
 
 function App() {
   const isLoading = useRecoilValue(isAuthLoadingState);
@@ -32,10 +32,17 @@ function App() {
   return (
     <div className="App">
         <ApiClientProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
         {
           isLoading ?
-          <>loading....</>
+          <div className='Loader_container'>
+             <Blocks
+                height="100"
+                width="100"
+                color='yellow'
+                ariaLabel='loading'
+              />
+          </div>
           :(
             <>
              <Header/>

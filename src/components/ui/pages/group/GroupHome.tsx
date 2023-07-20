@@ -94,11 +94,7 @@ const GroupHome:React.FC = () => {
     return (
         <>
            <div className={styles.group_home_container}>
-                <div className={styles.group_home_body_top}>
-                    <div  className={styles.group_home_body_top_groupinfo}>
-                        <GroupInfo/>
-                    </div>
-                </div>
+                <GroupInfo/>
                 {
                     isJoined?
                     <div>

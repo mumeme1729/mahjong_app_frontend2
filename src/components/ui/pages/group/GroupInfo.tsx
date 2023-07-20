@@ -19,12 +19,10 @@ const GroupInfo:React.FC = () => {
         <>
            <div className={styles.groupinfo_container}>
                 <div className={styles.groupinfo_body_left}>
-                    <div>
-                        {group?.image!==null?
-                            <img src={group?.image} className={styles.groupinfo_img} alt="group_img"/>
-                        :   <img src={groupImage} className={styles.groupinfo_img} alt="group_img"/>
-                        }
-                    </div>
+                    {group?.image!==null?
+                        <img src={group?.image} className={styles.groupinfo_img} alt="group_img"/>
+                    :   <img src={groupImage} className={styles.groupinfo_img} alt="group_img"/>
+                    }
                 </div>
                 <div className={styles.groupinfo_body_right}>
                     <div className={styles.groupinfo_title}>

@@ -5,8 +5,11 @@ import { firebaseAuth } from '../firebase';
 import { useEffect } from "react";
 
 const apiClient = axios.create({
-    baseURL: "http://localhost:8000/"
+    baseURL: "https://www.toring-together.com/"
 });
+// const apiClient = axios.create({
+//     baseURL: "localhost:8000"
+// });
 
 export function ApiClientProvider({children}: {children: React.ReactElement[]| React.ReactElement}){
     useEffect(()=>{
@@ -22,25 +25,25 @@ export function ApiClientProvider({children}: {children: React.ReactElement[]| R
             // リクエスト送信前のエラーハンドリングを記述
             return Promise.reject(error);
           })
-        // レスポンス インターセプター
-        const responseInterceptor = apiClient.interceptors.response.use(
-            (response) => {
-                return response
-            },
-            (error) => {
-            switch (error.response?.status) {
-                case 401:
-                    return apiClient(error?.config);
-                break
-                default:
-                break
-            }
-            return Promise.reject(error)
-            }
-        )
+        // // レスポンス インターセプター
+        // const responseInterceptor = apiClient.interceptors.response.use(
+        //     (response) => {
+        //         return response
+        //     },
+        //     (error) => {
+        //     switch (error.response?.status) {
+        //         case 401:
+        //             return apiClient(error?.config);
+        //         break
+        //         default:
+        //         break
+        //     }
+        //     return Promise.reject(error)
+        //     }
+        // )
     return () => {
         apiClient.interceptors.request.eject(requestInterceptors)
-        apiClient.interceptors.response.eject(responseInterceptor)
+        // apiClient.interceptors.response.eject(responseInterceptor)
     }
     },[])
 

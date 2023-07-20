@@ -1,6 +1,7 @@
 {
   "name": "group_mahjong_record2",
   "version": "0.1.0",
+  "homepage": "https://groupmahjongrecord.com",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -29,6 +30,7 @@
     "react-dom": "^18.2.0",
     "react-easy-crop": "^5.0.0",
     "react-image-crop": "^10.1.5",
+    "react-loader-spinner": "^5.3.4",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",

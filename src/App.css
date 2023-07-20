@@ -9,6 +9,13 @@
   pointer-events: none;
 }
 
+.Loader_container {
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center;     /* 垂直方向の中央揃え */
+  height: 100vh;           /* 親要素をビューポートの高さに設定 */
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

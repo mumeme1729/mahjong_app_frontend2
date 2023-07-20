@@ -24,40 +24,35 @@ const VerifyEmail:React.FC = () => {
     const [falseLogin,setfalseLogin]=useState(false);
     const [loginErrorMessage, setLoginErrorMessage]=useState("ログインに失敗しました");
 
-    useEffect(() => {
-        onAuthStateChanged(firebaseAuth, async (currentUser) => {
-          if(currentUser && currentUser.emailVerified){
-            const register_data:UserRegist = {
-                firebase_uid: currentUser.uid,
-                is_active:true
-            }
-            try {
-                const registerUser:CommonResponse = await postUserRegister(register_data);
-                if (registerUser.status=="ok"){
-                    setIsProfileModalOpen(true);
-                    navigate("/")
-                }
-            } catch (error) {
-                alert(error)
-            }
-         }else{
-            // ログインしていない場合
-            setIsLogin(false);
+    // useEffect(() => {
+    //     onAuthStateChanged(firebaseAuth, async (currentUser) => {
+    //       if(currentUser && currentUser.emailVerified){
+    //         const register_data:UserRegist = {
+    //             firebase_uid: currentUser.uid,
+    //             is_active:true
+    //         }
+    //         try {
+    //             const registerUser:CommonResponse = await postUserRegister(register_data);
+    //             if (registerUser.status=="ok"){
+    //                 setIsProfileModalOpen(true);
+    //                 navigate("/")
+    //             }
+    //         } catch (error) {
+    //             alert(error)
+    //         }
+    //      }else{
+    //         // ログインしていない場合
+    //         setIsLogin(false);
 
-         }
-    });
-      }, []);
+    //      }
+    // });
+    //   }, []);
 
     return (
         <>
             <div className={styles.auth_container}>
                 <p>認証が完了しました</p>
             </div>
-            {
-                isLogin
-                ?null
-                :
-                <>
                     <div>以下のフォームからログインしてください</div>
                     <div className="auth_container">
                     <Formik
@@ -161,8 +156,6 @@ const VerifyEmail:React.FC = () => {
                         )}
                     </Formik>
                 </div>
-                </>
-            }
         </>
     )
 }

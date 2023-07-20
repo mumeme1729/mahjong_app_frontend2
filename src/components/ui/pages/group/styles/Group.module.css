@@ -5,10 +5,6 @@
     width:100%;
     background-color: aliceblue;
 }
-.group_home_body{
-    display: flex;
-    /* background-color: blue; */
-}
 .match_total{
     text-align: center;
 }
@@ -16,43 +12,49 @@
     display: flex;
     justify-content: center;
 }
-.group_home_body_top{
-    margin-left: 10px;
-}
-
 /* GroupInfo */
 .groupinfo_container{
     display: flex;
     margin-top: 5px;
+    width: 100%;
+    /* box-sizing: border-box; */
 }
 .groupinfo_title{
     display: flex;
+    width: 100%;
+    /* background-color: #F082DE; */
 }
 .groupinfo_img{
-    width:300px; 
-    height:300px;
+    width:260px; 
+    height:260px;
     border-radius: 20%;
     object-fit: cover;
 }
+.groupinfo_body_left{
+    display: flex;
+    justify-content: center;
+    width: 55%;
+    /* background-color: blue; */
+}
 .groupinfo_body_right{
-    margin-left: 50px;
+    /* margin-left: 50px; */
     display: flex;
     flex-flow: column;
+    width: 45%;
+    /* background-color: #F082DE; */
 }
 .groupinfo_title_h2{
     font-family: 'Noto Sans JP', sans-serif;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 100%;
+    width: auto;
     font-size: 60px;
 }
 .group_home_title_p{
     margin-top: 11px;
 }
-.group_home_body_top_groupinfo_title{
-    margin-left: 15px;
-}
+
 .share_btn{
     margin-top: 40px;
     display: flex;
@@ -219,11 +221,15 @@
     border-radius: 10px;
     background-color: #eeeeee;
     border: 7px double #F082DE;
+    box-sizing: border-box;
+    /* width: 90%; */
 }
 .member_detail_profile_body_left{
+    width: 40%;
 }
 .member_detail_profile_body_right{
-    margin-left: 30px;
+    /* margin-left: 30px; */
+    width: 60%;
 }
 .member_detail_nick_name{
     font-size: 40px;
@@ -231,7 +237,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 300px;
+    width: 100%;
     font-weight:bold;
 	/* color: #01579B;
 	text-shadow: 0 0 0.2em rgba(255,255,255,1); */
@@ -245,7 +251,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 250px;
+    width: 100%;
 }
 
 .member_detail_progress_container{
@@ -258,7 +264,8 @@
 .member_detail_record_container{
     /* background-color: red; */
     display: flex;
-    width: 100%;
+    width: auto;
+    box-sizing: border-box;
 }
 .member_detail_chart_conainer{
     margin-top: 10px;

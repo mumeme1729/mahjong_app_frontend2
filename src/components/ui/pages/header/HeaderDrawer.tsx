@@ -42,10 +42,6 @@ const HeaderDrawer:React.FC = () => {
                     loginuser
                     ?
                     <div className={styles.drawer}>
-                    <div className={styles.navmune_profile_nickname}>
-                        <p className={styles.header_nickname}>{"テストニックネーム"}</p>  
-                    </div>
-                    <p className={styles.header_p_underbar}>_______________________________</p>
                     <div className={styles.header_navbar_menu} onClick={()=>{}}>
                         <PersonIcon/><h4 className={styles.header_navbar_menu_title}>プロフィール</h4>
                     </div>
