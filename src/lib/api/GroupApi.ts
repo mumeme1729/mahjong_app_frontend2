@@ -142,3 +142,27 @@ export async function getGamesSpecifiedPeriod(group_id:string, date_from:string|
     throw error
   }
 }
+
+
+// グループ情報更新
+export async function putUpdateGroupInfo(group_id:string|undefined, title:string, text:string, password:string, upload_file:File|null) {
+  try {
+    
+    const params ={
+      group_id:group_id,
+      title:title,
+      text: text,
+      password:password
+    }
+
+    const formData = new FormData();
+    if(upload_file !== null){
+      formData.append('upload_file',upload_file)
+    }
+
+    const response = await apiClient.put<GroupHomeSchema>(`/api/groups/update_group`,upload_file?formData:null, {params})
+    return response.data
+  } catch (error: unknown) {
+    throw error
+  }
+}

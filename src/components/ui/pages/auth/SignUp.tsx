@@ -64,7 +64,7 @@ const SignUp = () => {
                     }
                     const actionCodeSettings = {
                         url: 'https://groupmahjongrecord.com/varify_email' ,
-                        // url: 'localhost:8000/varify_email'
+                        // url: 'http://localhost:3000/varify_email'
                     }  
                     await sendEmailVerification(res.user, actionCodeSettings)
                     navigate("/sent_email")

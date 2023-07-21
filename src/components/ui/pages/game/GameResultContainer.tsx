@@ -20,6 +20,8 @@ const GameResultsContainer:React.FC<{gameresults:GamesResultBasicSchema[]}> = ({
     // const isoTimeString = "2023-06-30T12:30:45.123Z";
     // const dateTimeRegex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/;
     // const [, year, month, day, hours, minutes] = isoTimeString.match(dateTimeRegex) || [];
+    
+
     return (
         <>
             <div key={gameresults[0].id+gameresults[0].created_at} onClick={()=>{}} className={gameResultStyles.gameresult_container}>

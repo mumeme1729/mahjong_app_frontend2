@@ -8,7 +8,7 @@ const apiClient = axios.create({
     baseURL: "https://www.toring-together.com/"
 });
 // const apiClient = axios.create({
-//     baseURL: "localhost:8000"
+//     baseURL: "http://localhost:8000/"
 // });
 
 export function ApiClientProvider({children}: {children: React.ReactElement[]| React.ReactElement}){
