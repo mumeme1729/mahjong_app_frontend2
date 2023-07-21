@@ -15,7 +15,21 @@ export async function postCreateGame(body:GameCreateSchema) {
   }
 }
 
+// Game削除
+// グループ情報更新
+export async function deleteGame(game_id:string|undefined) {
+  try {
+    
+    const params ={
+      game_id:game_id,
+    }
 
+    const response = await apiClient.delete<CommonResponse>(`/api/games/delete_game`, {params})
+    return response.data
+  } catch (error: unknown) {
+    throw error
+  }
+}
 
 
 

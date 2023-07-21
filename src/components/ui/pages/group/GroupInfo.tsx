@@ -10,15 +10,17 @@ import { Button, CircularProgress, makeStyles, TextField,} from '@material-ui/co
 
 // import Modal from "react-modal";
 import groupImage from '../../../../assets/img/zunda.jpg';
-import { useRecoilValue } from 'recoil';
-import { selectedGroupState } from '../../../../states/GroupState';
+import { useRecoilValue,useSetRecoilState } from 'recoil';
+import { isGroupEditModalOpenState, selectedGroupState } from '../../../../states/GroupState';
+import GroupEdit from './GroupEdit';
 
 const GroupInfo:React.FC = () => {
     const group = useRecoilValue(selectedGroupState);
+    const setIsGroupEditModalOpenState = useSetRecoilState(isGroupEditModalOpenState);
     return (
         <>
            <div className={styles.groupinfo_container}>
-                <div className={styles.groupinfo_body_left}>
+                <div className={styles.groupinfo_body_left} onClick={()=>{setIsGroupEditModalOpenState(true)}}>
                     {group?.image!==null?
                         <img src={group?.image} className={styles.groupinfo_img} alt="group_img"/>
                     :   <img src={groupImage} className={styles.groupinfo_img} alt="group_img"/>
@@ -33,6 +35,7 @@ const GroupInfo:React.FC = () => {
                     </div>
                 </div>
             </div>
+            <GroupEdit/>
         </>
     )
 }

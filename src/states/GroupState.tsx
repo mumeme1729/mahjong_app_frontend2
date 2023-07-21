@@ -54,3 +54,8 @@ export const recentlyGamesState = atom<GameResultSchema>({
     dangerouslyAllowMutability: true,
   });
 
+  export const isGroupEditModalOpenState = atom<boolean>({
+    key: 'isGroupEditModalOpenState',
+    default: false,
+    dangerouslyAllowMutability: true,
+  });

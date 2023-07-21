@@ -1,4 +1,5 @@
 import styles from "../../assets/css/Colors.module.css";
+import fontStyles from "../../assets/css/Font.module.css";
 
 export const getRankColorClass = (rank:string|null) => {
     switch (rank) {
@@ -22,4 +23,15 @@ export const getRankColorClass = (rank:string|null) => {
       default:
         return '';
     }
+};
+
+export const getFontSize = (str:string|null) => {
+  let len = str ? str.length : 0   
+  if (len <=6){
+    return fontStyles.font_size_30;
+  }else if (len >6 && len <=10){
+    return fontStyles.font_size_20;
+  }else{
+    return fontStyles.font_size_10;
+  }
 };

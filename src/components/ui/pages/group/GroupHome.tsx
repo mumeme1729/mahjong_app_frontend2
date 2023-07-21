@@ -16,6 +16,7 @@ import { group } from 'console';
 import { authState } from '../../../../states/AuthState';
 import { getLoginUserinfo } from '../../../../lib/api/UserApi';
 import { LoginUserInfo } from '../../../types/UserTypes';
+import { useNavigate, useLocation } from "react-router-dom";
 const modalStyle={
     overlay: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -41,6 +42,7 @@ const GroupHome:React.FC = () => {
     const loginuser = useRecoilValue(loginUserState);
     const [isJoined, setIsJoined] = useState<boolean>(false);
     const setLoginUserInfo = useSetRecoilState(loginUserState);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchLoader = async () => {
             console.log("group home");
@@ -56,7 +58,8 @@ const GroupHome:React.FC = () => {
                     const groupMemberProfiles = await getProfiles(id);
                     setGroupMemberProfiles(groupMemberProfiles)
                 } catch (error) {
-                    // alert(error)
+                    alert(error)
+                    navigate("/")
                 }
             }
         };
