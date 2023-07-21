@@ -30,7 +30,7 @@ const GamesTable:React.FC<GameResultSchema> = (gameResult) => {
                 </div>
                 {Object.keys(gameResult).map((key)=>(
                     <div  key={key}>
-                        <GameResultContainer  gameresults={gameResult[key]}/>
+                        <GameResultContainer  gameresults={gameResult[key]} id={key}/>
                     </div>
                 ))}
             </div>

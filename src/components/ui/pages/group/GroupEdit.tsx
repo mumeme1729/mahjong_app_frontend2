@@ -100,12 +100,13 @@ const GroupEdit:React.FC = () => {
                     </div>
                 </div>
                 <br />
-                <TextField placeholder="紹介文" type="text" defaultValue={groupInfo?.text} multiline fullWidth label="自己紹介"
+                <TextField placeholder="紹介文" type="text" defaultValue={groupInfo?.text} multiline fullWidth label="紹介文"
                     onChange={(event) => {
                         if(event.target.value.length<=200){
                             setText(event.target.value)
                         }
                     }}/>
+                <br/>
                 <br/>
                 <TextField placeholder="パスワード" type="text" defaultValue={groupInfo?.password} multiline fullWidth label="パスワード"
                     onChange={(event) => {

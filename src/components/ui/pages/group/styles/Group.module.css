@@ -267,6 +267,7 @@
 .member_detail_record_container{
     /* background-color: red; */
     display: flex;
+    flex-direction: column;
     width: auto;
     box-sizing: border-box;
 }
@@ -279,7 +280,8 @@
     /* background-color: aqua; */
     display: flex;
     padding: 0px 10px;
-    width: 35%;
+    width: auto;
+    justify-content: center;
 }
 .member_detail_maxmin_score_body{
     display: flex;
@@ -289,7 +291,8 @@
 }
 .member_detail_grade_container{
     /* background-color: burlywood; */
-    width: 65%;
+    width: auto;
+    margin-top: 15px;
 }
 .member_detail_grade_container{
     display: flex;
@@ -314,6 +317,8 @@
 }
 .gameresults_input_panel{
     display: flex;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
 .gameresults_input_panel_player{
     width: 350px;

@@ -42,6 +42,12 @@
     justify-content: center;
 }
 
+/* 編集モーダル */
+.profile_btn_container{
+    margin-top: 20px;
+    text-align: center;
+}
+
 
 /* グループ作成 */
 .create_group_container{

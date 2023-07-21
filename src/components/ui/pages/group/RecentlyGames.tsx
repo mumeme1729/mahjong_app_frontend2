@@ -38,7 +38,7 @@ const RecentlyGameContainer:React.FC = () => {
                 </div>
                 {Object.keys(recentlyGame).map((key)=>(
                     <div  key={key}>
-                        <GameResultContainer  gameresults={recentlyGame[key]}/>
+                        <GameResultContainer  gameresults={recentlyGame[key]} id={key}/>
                     </div>
                 ))}
             </div>

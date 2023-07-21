@@ -65,3 +65,15 @@
     height: 350px;
     margin-left: 5px;
 }
+
+/* 削除モーダル */
+.delete_modal_result{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.btn_container{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
+}

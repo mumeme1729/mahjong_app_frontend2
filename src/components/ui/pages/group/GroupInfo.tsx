@@ -20,10 +20,10 @@ const GroupInfo:React.FC = () => {
     return (
         <>
            <div className={styles.groupinfo_container}>
-                <div className={styles.groupinfo_body_left} onClick={()=>{setIsGroupEditModalOpenState(true)}}>
+                <div className={styles.groupinfo_body_left}>
                     {group?.image!==null?
-                        <img src={group?.image} className={styles.groupinfo_img} alt="group_img"/>
-                    :   <img src={groupImage} className={styles.groupinfo_img} alt="group_img"/>
+                        <img src={group?.image} className={styles.groupinfo_img} alt="group_img"  onClick={()=>{setIsGroupEditModalOpenState(true)}}/>
+                    :   <img src={groupImage} className={styles.groupinfo_img} alt="group_img"  onClick={()=>{setIsGroupEditModalOpenState(true)}}/>
                     }
                 </div>
                 <div className={styles.groupinfo_body_right}>
