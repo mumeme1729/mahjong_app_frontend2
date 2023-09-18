@@ -213,14 +213,15 @@
 /* メンバー詳細 */
 .membder_detail_container{
     /* background-color: #32a1ce; */
+    margin-bottom: 5px;
 }
 .member_detail_profile_conainer{
     /* background-color: blueviolet; */
     display: flex;
     padding: 10px;
-    border-radius: 10px;
-    background-color: #eeeeee;
-    border: 7px double #F082DE;
+    /* border-radius: 10px; */
+    /* background-color: red; */
+    border-bottom: 4px solid #eeeeee;
     box-sizing: border-box;
     /* width: 90%; */
 }

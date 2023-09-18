@@ -39,7 +39,7 @@ const PersonalRecordContainer:React.FC<{gameGrades:GameGradeProfileBasicSchema[]
                         gameGrades !== null 
                         ?
                             gameGrades.map((grade:GameGradeProfileBasicSchema)=>(
-                                <RecordCard  {...grade}/>
+                                grade.game_count!==0? <RecordCard  {...grade}/>:null
                             ))
                         :null 
                     }
