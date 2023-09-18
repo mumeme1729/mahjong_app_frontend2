@@ -1,10 +1,6 @@
 import React,{useEffect,useState }  from 'react'
 
 import styles from "./styles/Group.module.css";
-import { Button, CircularProgress, makeStyles, TextField,} from '@material-ui/core';
-import groupImage from '../../../../assets/img/zunda.jpg';
-import { useRecoilValue } from 'recoil';
-import { selectedGroupState } from '../../../../states/GroupState';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const GroupMenu:React.FC = () => {

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import { Formik } from "formik";
 import {Button,TextField} from "@material-ui/core";
 import * as Yup from "yup";
@@ -7,8 +7,7 @@ import styles from './styles/Auth.module.css';
 import { firebaseAuth } from '../../../../firebase';
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import { isProfileModalOpenState } from '../../../../states/HomeState';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { authState } from '../../../../states/AuthState';
 const modalStyle={
     overlay: {

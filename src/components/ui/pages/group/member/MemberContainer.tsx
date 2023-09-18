@@ -30,7 +30,7 @@ const GroupMember:React.FC = () => {
                                             <div className={styles.member_avater}>
                                                 {profile.image!==null?
                                                     <Avatar alt="who?" src={profile.image} style={{height:'80px',width:'80px'}}/>
-                                                :null}
+                                                :<Avatar alt="who?" src={""} style={{height:'80px',width:'80px'}}/>}
                                             </div>
                                             <div>
                                                 <div  className={styles.member_nick_name}>{profile?.nick_name}</div>

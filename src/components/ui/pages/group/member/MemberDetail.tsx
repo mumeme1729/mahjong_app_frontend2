@@ -33,7 +33,7 @@ const MemberDetail:React.FC = () => {
                             <div className={styles.member_detail_profile_body_left}>
                                 {personalRecord.image!==null?
                                     <Avatar alt="who?" src={personalRecord.image} style={{height:'130px',width:'130px', border: '1px solid'}}/>
-                                :null}
+                                :<Avatar alt="who?" src={""} style={{height:'130px',width:'130px', border: '1px solid'}}/>}
                             </div>
                             <div className={styles.member_detail_profile_body_right}>
                                 <div>
@@ -52,7 +52,7 @@ const MemberDetail:React.FC = () => {
                         </div>
                         <div className={styles.member_detail_chart_conainer}>
                         <ResponsiveContainer width={'100%'} height={120} className={styles.LineChart}>
-                            <LineChart data={personalRecord.recent_rank.reverse()} margin={{ top: 15, right: 5, bottom: 5, left: -20 }}>
+                            <LineChart data={personalRecord.recent_rank.reverse()} margin={{ top: 15, right: 5, bottom: 5, left: -25 }}>
                                 <CartesianGrid stroke="#ccc" />
                                 <YAxis type="number" ticks={[1,2,3,4]} tickSize={0} reversed domain={[1,4]}/>
                                 <Line  dataKey="rank" stroke="#8884d8" strokeWidth={4}  dot={{ stroke: 'blue', strokeWidth: 3 }} isAnimationActive={false}/>

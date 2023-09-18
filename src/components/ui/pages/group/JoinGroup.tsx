@@ -1,7 +1,7 @@
 import React,{useLayoutEffect,useState }  from 'react'
 import { useParams } from 'react-router-dom';
 import styles from "./styles/Group.module.css";
-import { Button, CircularProgress, makeStyles, TextField,} from '@material-ui/core';
+import { Button, TextField,} from '@material-ui/core';
 import Modal from "react-modal";
 import { useRecoilValue } from 'recoil';
 import { selectedGroupState } from '../../../../states/GroupState';
