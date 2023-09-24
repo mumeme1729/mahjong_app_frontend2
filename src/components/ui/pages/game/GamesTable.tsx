@@ -1,11 +1,11 @@
 import React,{useEffect,useState }  from 'react'
 
-import styles from "./styles/Group.module.css";
 import gameResultStyles from "../../../../assets/css/GameResultTable.module.css"
 import { Button, CircularProgress, makeStyles, TextField,} from '@material-ui/core';
 
 import GameResultContainer from './GameResultContainer';
 import { GameResultSchema } from '../../../types/GameTypes';
+import GamesTableagenation from './GamesTablePagenation';
 
 const GamesTable:React.FC<GameResultSchema> = (gameResult) => {
     
@@ -28,11 +28,12 @@ const GamesTable:React.FC<GameResultSchema> = (gameResult) => {
                         </div>
                     </div>
                 </div>
-                {Object.keys(gameResult).map((key)=>(
+                <GamesTableagenation {...gameResult}/>
+                {/* {Object.keys(gameResult).map((key)=>(
                     <div  key={key}>
                         <GameResultContainer  gameresults={gameResult[key]} id={key}/>
                     </div>
-                ))}
+                ))} */}
             </div>
         </>
     )

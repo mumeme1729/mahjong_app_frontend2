@@ -47,6 +47,11 @@
     display:inline;
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 13px;
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90px;
 }
 .results_table_p_blue{
     color: blue;
@@ -76,4 +81,11 @@
     justify-content: space-between;
     padding-left: 40px;
     padding-right: 40px;
+}
+.pagenation{
+    margin-top: 20px;
+}
+.pagenationButton{
+    margin-left: 5px;
+    margin-right: 5px;
 }

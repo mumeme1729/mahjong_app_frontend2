@@ -14,19 +14,20 @@ const MemberCard:React.FC<MemberCardProps> = ({ selectMember, position,...profil
         <>  
                 <div key={profile.id} onClick={()=>{selectMember(profile)}} className={styles.game_user_btn}>
                     <div className={styles.member_body}>
-                        <div>
+                        <div className={styles.member_body_container}>
                             <div className={styles.member_avater}>
-                                {profile.image!=="" && profile.image !== null?
+                                {profile.image !== null?
                                 <Avatar alt="who?" src={profile.image} style={{height:'70px',width:'70px'}}/>
-                                :null}
+                                :<Avatar alt="who?" src={""} style={{height:'70px',width:'70px'}}/>}
                             </div>
                             <div>
                                 <div  className={styles.member_nick_name}>{profile?.nick_name}</div>
                                 <div  className={`${styles.member_rate} ${getRankColorClass(profile?.rank_name)}`}>{profile?.rank_name}</div>
-                                {position && <p>{position}</p>}
                             </div>
                         </div>
+                        {position && <div className={styles.position}>{position}</div>}
                     </div>
+                    
                 </div> 
         </>
     )

@@ -204,88 +204,89 @@ const MemberSelectContainer:React.FC = () => {
                 }}
                 style={modalStyle}
                 ariaHideApp={false}
-            >
-                <h2>対局結果</h2>
-                {/* {startLoad && <CircularProgress/>} */}
-                {selectedMembers.length===4?
-                    <div>
+            >   <div className={styles.gameResultModal}>
+                    <h2>対局結果</h2>
+                    {/* {startLoad && <CircularProgress/>} */}
+                    {selectedMembers.length===4?
                         <div>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
-                                    <DateTimePicker
-                                    label="Controlled picker"
-                                    value={date}
-                                    onChange={(newValue) => setDate(newValue)}
+                            <div>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                                        <DateTimePicker
+                                        label="Controlled picker"
+                                        value={date}
+                                        onChange={(newValue) => setDate(newValue)}
+                                        />
+                                    </DemoContainer>
+                                </LocalizationProvider>
+                            </div>
+                            {
+                                selectedMembers.map(member => 
+                                    <GameMemberCard 
+                                        key={member.id} 
+                                        setScore={(score) => setScore(member.id, score)} 
+                                        {...member} 
                                     />
-                                </DemoContainer>
-                            </LocalizationProvider>
-                        </div>
-                        {
-                            selectedMembers.map(member => 
-                                <GameMemberCard 
-                                    key={member.id} 
-                                    setScore={(score) => setScore(member.id, score)} 
-                                    {...member} 
-                                />
-                            )
-                        }
-                    </div>
-                :
-                    <div> 
-                    </div>
-                }
-                <div>
-                    <div>合計:{ selectedMembers.reduce((sum, member) => sum + (member.score || 0), 0)}</div>
-                    <div className={styles.match_radio_box_container}>
-                        <span>ウマ：</span>
-                        <label>
-                            <input
-                            type="radio"
-                            value="0"
-                            onChange={(e)=>{setUma(e.target.value)}}
-                            checked={uma === '0'}
-                            />
-                            0
-                        </label>
-                        <label>
-                            <input
-                            type="radio"
-                            value="5-10"
-                            onChange={(e)=>{setUma(e.target.value)}}
-                            checked={uma === '5-10'}
-                            />
-                            5-10
-                        </label>
-                        <label>
-                            <input
-                            type="radio"
-                            value="10-20"
-                            onChange={(e)=>{setUma(e.target.value)}}
-                            checked={uma === '10-20'}
-                            />
-                            10-20
-                        </label>
-                         <label>
-                            <input
-                            type="radio"
-                            value="10-30"
-                            onChange={(e)=>{setUma(e.target.value)}}
-                            checked={uma === '10-30'}
-                            />
-                            10-30
-                        </label> 
-                    </div>
-                    <div className={styles.game_start_btn}>
-                        <Button
-                            disabled={
-                                selectedMembers.reduce((sum, member) => sum + (member.score || 0), 0) !== 100000
+                                )
                             }
-                            variant="contained"
-                            color="primary"
-                            onClick={recordScore}
-                        >
-                            記録
-                        </Button>
+                        </div>
+                    :
+                        <div> 
+                        </div>
+                    }
+                    <div>
+                        <div>合計:{ selectedMembers.reduce((sum, member) => sum + (member.score || 0), 0)}</div>
+                        <div className={styles.match_radio_box_container}>
+                            <span>ウマ：</span>
+                            <label>
+                                <input
+                                type="radio"
+                                value="0"
+                                onChange={(e)=>{setUma(e.target.value)}}
+                                checked={uma === '0'}
+                                />
+                                0
+                            </label>
+                            <label>
+                                <input
+                                type="radio"
+                                value="5-10"
+                                onChange={(e)=>{setUma(e.target.value)}}
+                                checked={uma === '5-10'}
+                                />
+                                5-10
+                            </label>
+                            <label>
+                                <input
+                                type="radio"
+                                value="10-20"
+                                onChange={(e)=>{setUma(e.target.value)}}
+                                checked={uma === '10-20'}
+                                />
+                                10-20
+                            </label>
+                            <label>
+                                <input
+                                type="radio"
+                                value="10-30"
+                                onChange={(e)=>{setUma(e.target.value)}}
+                                checked={uma === '10-30'}
+                                />
+                                10-30
+                            </label> 
+                        </div>
+                        <div className={styles.game_start_btn}>
+                            <Button
+                                disabled={
+                                    selectedMembers.reduce((sum, member) => sum + (member.score || 0), 0) !== 100000
+                                }
+                                variant="contained"
+                                color="primary"
+                                onClick={recordScore}
+                            >
+                                記録
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </Modal>

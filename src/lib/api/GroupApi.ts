@@ -135,7 +135,6 @@ export async function getGamesSpecifiedPeriod(group_id:string, date_from:string|
       date_from: date_from!== null? date_from : '2023/04/07 11:11:11',
       date_until:date_until
     }
-
     const response = await apiClient.get<GameResultSchema>(`/api/groups/get_games_specified_period`,{params})
     return response.data
   } catch (error: unknown) {

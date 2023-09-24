@@ -20,9 +20,9 @@ const GameMemberCard:React.FC<GameMemberCardProps> = ({setScore, position, ...pr
                         {position}:
                     </div>
                     <div>
-                        {profile.image!=="" && profile.image !== null?
+                        {profile.image !== null?
                             <Avatar alt="who?" src={profile.image} style={{height:'40px',width:'40px'}}/>
-                        :null}
+                        : <Avatar alt="who?" src={""} style={{height:'40px',width:'40px'}}/>}
                     </div>
                     <div className={styles.gameresults_input_panel_nickname}>
                         <p className={styles.game_nickname}>{profile.nick_name}</p>

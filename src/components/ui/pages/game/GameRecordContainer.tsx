@@ -23,8 +23,10 @@ const GameRecordContainer:React.FC = () => {
     const groupMemberProfiles = useRecoilValue(ProfilesState);
     const now = new Date();
     const formattedDate = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}T${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    now.setDate(now.getDate() - 14);
+    const formattedDatetwoWeeksAgo = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}T${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     const [date_until, setDateUntil] = useState<Dayjs>(dayjs(formattedDate));
-    const [date_from, setDateFrom] = useState<Dayjs|null>(null);
+    const [date_from, setDateFrom] = useState<Dayjs>(dayjs(formattedDatetwoWeeksAgo));
     const [gameGrades, setGameGrades] = useState<GameGradeProfileSchema>(null)
     const [gameResults, setGameResults] = useState<GameResultSchema|null>(null)
 
@@ -34,7 +36,6 @@ const GameRecordContainer:React.FC = () => {
                 const ids = groupMemberProfiles?.map(profile => profile.id);
                 if (ids !== null && ids !== undefined && id !== undefined){
                     let res = await getAllProfilesGameGrade(false, ids, date_from !== null? date_from.format('YYYY/MM/DD HH:mm:ss'):null ,date_until?.format('YYYY/MM/DD HH:mm:ss'))
-                    console.log(res);
                     setGameGrades(res);
                     let gameResultsRes = await getGamesSpecifiedPeriod(id,date_from !== null? date_from.format('YYYY/MM/DD HH:mm:ss'):null ,date_until?.format('YYYY/MM/DD HH:mm:ss') )
                     console.log(gameResultsRes);

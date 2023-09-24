@@ -11,7 +11,7 @@ const RecordCard:React.FC<GameGradeProfileBasicSchema> = (grade) => {
     
     return (
             <TableRow>
-                <TableCell style={{ position: 'sticky', left: 0, backgroundColor: '#fafafa'}}><div className={styles.results_table_p}>{grade?.nick_name}</div></TableCell>
+                <TableCell style={{ position: 'sticky', left: 0, backgroundColor: '#fafafa'}}><div className={styles.result_table_p_nickname}>{grade?.nick_name}</div></TableCell>
                 <TableCell>
                     {grade?.total_score !== undefined && grade?.total_score>=0?
                         <div className={gameResultStyles.results_table_p_blue}>{grade?.total_score}</div>

@@ -29,8 +29,8 @@ const GroupMember:React.FC = () => {
                                         <div>
                                             <div className={styles.member_avater}>
                                                 {profile.image!==null?
-                                                    <Avatar alt="who?" src={profile.image} style={{height:'80px',width:'80px'}}/>
-                                                :<Avatar alt="who?" src={""} style={{height:'80px',width:'80px'}}/>}
+                                                    <Avatar alt="who?" src={profile.image} style={{height:'70px',width:'70px'}}/>
+                                                :<Avatar alt="who?" src={""} style={{height:'70px',width:'70px'}}/>}
                                             </div>
                                             <div>
                                                 <div  className={styles.member_nick_name}>{profile?.nick_name}</div>
