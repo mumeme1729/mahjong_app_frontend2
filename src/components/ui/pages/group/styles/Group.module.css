@@ -175,17 +175,19 @@
 }
 .member_body{
     margin-top: 5px;
-    width: 105px;
+    width: 100px;
     /* background-color: blue; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: thick double #32a1ce;
-    height: 120px;
+    height: 123px;
 }
-/* .member_body_container{
+.member_body_container{
     z-index: 1;
-} */
+    
+    /* background-color: aquamarine; */
+}
 .member_avater{
     margin-left:20px;
 }
@@ -205,7 +207,7 @@
     opacity: 0.5;
     font-size: 50px;
     background-color: #32a1ce;
-    margin-top: -90px;
+    margin-top: -80px;
 }
 
 .member_rate{
