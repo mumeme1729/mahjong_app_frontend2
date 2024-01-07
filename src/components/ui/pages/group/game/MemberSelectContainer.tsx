@@ -79,7 +79,7 @@ const MemberSelectContainer:React.FC = () => {
         );
     };
 
-    function calcScor(member:ProfileWithPosition, index: number){
+    function calcScore(member: ProfileWithPosition, index: number, totalOtherScores: number){
         let ranklist: GameResultCreateSchema = {
             rank: 0,
             score: 0,
@@ -87,46 +87,49 @@ const MemberSelectContainer:React.FC = () => {
             profile: ''
         };
         // 五捨六入結果
-        let calcscore:number=0 
+        let calcscore:number = 0;
         if(member.score !== null){
-            if(member?.score>=0){
-                let cscore=(member?.score+400)/1000;
-                cscore=Math.floor(cscore);
-                calcscore=cscore-30;
-            }else{
-                let cscore=(member?.score-400)/1000;
-                cscore=Math.ceil(cscore);
-                calcscore=cscore-30;
+            if(member.score >= 0){
+                let cscore = (member.score + 400) / 1000;
+                cscore = Math.floor(cscore);
+                calcscore = cscore - 30;
+            } else {
+                let cscore = (member.score - 400) / 1000;
+                cscore = Math.ceil(cscore);
+                calcscore = cscore - 30;
             }
         }
-        if(uma=="0"){
-            if(index===1){calcscore=calcscore+20;}
-            if(index===2){calcscore=calcscore;}
-            if(index===3){calcscore=calcscore;}
-            if(index===4){calcscore=calcscore};
-        }else if(uma==="5-10"){
-            if(index===1){calcscore=calcscore+20+10;}
-            if(index===2){calcscore=calcscore+5;}
-            if(index===3){calcscore=calcscore-5;}
-            if(index===4){calcscore=calcscore-10};
-        }else if(uma==="10-20"){
-            if(index===1){calcscore=calcscore+20+20;}
-            if(index===2){calcscore=calcscore+10;}
-            if(index===3){calcscore=calcscore-10;}
-            if(index===4){calcscore=calcscore-20};
-        }else if(uma==="10-30"){
-            if(index===1){calcscore=calcscore+20+30;}
-            if(index===2){calcscore=calcscore+10;}
-            if(index===3){calcscore=calcscore-10;}
-            if(index===4){calcscore=calcscore-30};
+    
+        // スコアの調整
+        if (uma == "0") {
+            // indexが1の場合、他のスコアの合計から逆算
+            if(index === 1) {
+                calcscore = -totalOtherScores;
+            }
+        } else if (uma === "5-10") {
+            if(index === 1) { calcscore = -totalOtherScores; }
+            else if(index === 2) { calcscore += 5; }
+            else if(index === 3) { calcscore -= 5; }
+            else if(index === 4) { calcscore -= 10; }
+        } else if (uma === "10-20") {
+            if(index === 1) { calcscore = -totalOtherScores; }
+            else if(index === 2) { calcscore += 10; }
+            else if(index === 3) { calcscore -= 10; }
+            else if(index === 4) { calcscore -= 20; }
+        } else if (uma === "10-30") {
+            if(index === 1) { calcscore = -totalOtherScores; }
+            else if(index === 2) { calcscore += 10; }
+            else if(index === 3) { calcscore -= 10; }
+            else if(index === 4) { calcscore -= 30; }
         }
-
-        ranklist["rank"] = index;
-        ranklist["score"] = calcscore;
-        ranklist["score_origin"] = member.score!== null ? member.score : 0;
-        ranklist["profile"] = member.id !== null ? member.id : "";
+    
+        ranklist.rank = index;
+        ranklist.score = calcscore;
+        ranklist.score_origin = member.score !== null ? member.score : 0;
+        ranklist.profile = member.id !== null ? member.id : "";
         return ranklist;
     }
+
     const sortedMembers = [...selectedMembers].sort((a, b) => {
         if (a.score === null) return -1; // もしaのscoreがnullの場合、bを先に並べる
         if (b.score === null) return 1; // もしbのscoreがnullの場合、aを先に並べる
@@ -155,9 +158,23 @@ const MemberSelectContainer:React.FC = () => {
                     game_results: []
                 }
                 // ソート
+                // sortedMembers.map((member, index) => (
+                //     request_body["game_results"].push(calcScor(member, index+1))
+                // ));
+                // トップの点数を計算する
+                let totalOtherScores = 0;
+                sortedMembers.forEach((member, index) => {
+                    if(index + 1 > 1) { // indexが2, 3, 4の場合のみ合計を計算
+                        let tempResult = calcScore(member, index + 1, 0); // 一時的にスコアを計算
+                        totalOtherScores += tempResult.score; // 合計に加算
+                    }
+                });
+
+                // 最終的なスコアを計算
                 sortedMembers.map((member, index) => (
-                    request_body["game_results"].push(calcScor(member, index+1))
+                    request_body["game_results"].push(calcScore(member, index + 1, totalOtherScores))
                 ));
+
                 console.log(`時刻情報 => ${date}`)
                 await postCreateGame(request_body)
                 setOpenModal(false);
